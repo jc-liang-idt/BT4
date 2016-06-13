@@ -150,8 +150,8 @@ public class QA_HK_Agent  {
 				Email q = new Email(usr);
 				String w = q.getMail2("code");
 				if(w.equals("hi")) return false;
-				int r = w.indexOf("is:");
-				w=w.substring(r+3,r+12);
+				int r = w.indexOf("is: ");
+				w=w.substring(r+1,r+10);
 
 				driver.findElement(By.id("temp_code")).clear();
 				driver.findElement(By.id("temp_code")).sendKeys(w);
