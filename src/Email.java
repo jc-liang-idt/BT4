@@ -187,8 +187,8 @@ public static String getMail2(String choice) {
 			DateFormat formatter = new SimpleDateFormat("HH:mm:ss:SSS");
 			
 			long messageReceived = message.getReceivedDate().getTime();
-			long lowerBound = System.currentTimeMillis() - 6000;	
-			long upperBound = System.currentTimeMillis() + 6000; 
+			long lowerBound = System.currentTimeMillis() - 40000;	
+			long upperBound = System.currentTimeMillis() + 40000; 
 			
 			System.out.println(formatter.format(messageReceived));
 			System.out.println(formatter.format(lowerBound));
@@ -200,7 +200,9 @@ public static String getMail2(String choice) {
 					){
 				System.out.println("All 3 conditions met!" );
 				String answerArray = message.getContent().toString(); 
-				returnString = answerArray.substring(82, 91); 
+				//returnString = answerArray.substring(82, 91); 
+				int r = answerArray.indexOf("is: ");
+				returnString = answerArray.substring(r+3,r+12);
 				System.out.println("return string: " + returnString);
 			}
 			
