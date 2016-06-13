@@ -1,3 +1,5 @@
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.mail.*;
@@ -128,10 +130,38 @@ public class Email {
 		}
 		return "hi";
 	}
+// testing time 
+
+	public static void main(String[] args){
+		DateFormat formatter = new SimpleDateFormat("HH:mm:ss:SSS");
+		
+		long current = System.currentTimeMillis(); 
+		System.out.println(formatter.format(current));
+		
+		long lowerBound = System.currentTimeMillis() - 20000;
+		System.out.println(formatter.format(lowerBound));
+		
+		long upperBound = System.currentTimeMillis() + 20000; 
+		System.out.println(formatter.format(upperBound));
+		/*
+		Calendar c = Calendar.getInstance(); 
+		System.out.println(c.getTime());
+		
+		Calendar lowerBound = Calendar.getInstance();
+		lowerBound.add(Calendar.SECOND, -20 );
+		System.out.println("lowerBound: " + lowerBound.getTime());
+		
+		Calendar upperBound = Calendar.getInstance(); 
+		upperBound.add(Calendar.SECOND, 20);
+		System.out.println("upperBound: " + upperBound.getTime()); 	
+		*/
+	}
+	
 	//grabs emails containing email verification codes
 public static String getMail2(String choice) {
 	String returnString = "";
 	try{
+		
 		Thread.sleep(4000);
 		Properties props = System.getProperties();
 		props.setProperty("mail.store.protocol", "imaps");
@@ -145,14 +175,46 @@ public static String getMail2(String choice) {
 		Folder inbox = store.getFolder("INBOX"); 
 		inbox.open(Folder.READ_WRITE);
 		
+		Flags seen = new Flags(Flags.Flag.SEEN); 
+		FlagTerm unseenFlagTerm = new FlagTerm(seen, false);
+		
+		Message[] messages = inbox.search(unseenFlagTerm); 
+		System.out.println("GOT TO MESSAGES");
+		for (int i =0 ; i < messages.length; i++){
+			System.out.println("got inside messages");
+			Message message = messages[i]; 
+			
+			DateFormat formatter = new SimpleDateFormat("HH:mm:ss:SSS");
+			
+			long messageReceived = message.getReceivedDate().getTime();
+			long lowerBound = System.currentTimeMillis() - 6000;	
+			long upperBound = System.currentTimeMillis() + 6000; 
+			
+			System.out.println(formatter.format(messageReceived));
+			System.out.println(formatter.format(lowerBound));
+			System.out.println(formatter.format(upperBound));
+			
+			if (message.getSubject().toString().equals("BOSS Revolution Portal Security") 
+					&& message.getFrom()[0].toString().equals("pa-israel@corp.idt.net")
+					&& messageReceived >= lowerBound && messageReceived <= upperBound
+					){
+				System.out.println("All 3 conditions met!" );
+				String answerArray = message.getContent().toString(); 
+				returnString = answerArray.substring(82, 91); 
+				System.out.println("return string: " + returnString);
+			}
+			
+		}
 		//SearchTerm sender = new FromTerm(new InternetAddress("pa-israel@corp.idt.net"));
-		Message[] messages = inbox.search(new FlagTerm(new Flags(Flag.SEEN), false)); 
+		/*Message[] messages = inbox.search(new FlagTerm(new Flags(Flag.SEEN), false)); 		
 		String[] answerArray = new String[50];
 		for (int i = 0; i < messages.length; i++){
 			//messages = inbox.search(sender) TODO: how to incorporate sender and subject field? ; 
+		
 			answerArray[i] = messages[i].getContent().toString();	
 			System.out.println("answerArray at position" + i + " " + answerArray[i]);
 		}
+		
 		
 		System.out.println(answerArray[1]);
 		String returnValue = answerArray[0]; 
@@ -161,14 +223,16 @@ public static String getMail2(String choice) {
 		System.out.println(" IS THIS RIGHT: " + ret);
 	
 		inbox.setFlags(messages, new Flags(Flags.Flag.SEEN), true);; 
-		}
+		*/
+		inbox.setFlags(messages, new Flags(Flags.Flag.SEEN), true); 	
+	}
 	catch(Exception ex){
 		ex.printStackTrace(); 
 	}
 	return returnString;
 }
 	
-	/*
+/*
 	public String getMail2(String choice) {
 
 		if(tries++ == 7){
@@ -288,8 +352,6 @@ public static String getMail2(String choice) {
 			System.out.println("Email.java search term is: " + term);
 			System.out.println("FOUND " + msgs.length + " MESSAGES");
 			
-			
-			
 			if (msgs.length == 0) {// no match
 				try {
 					System.out.println("Email.java got here14");
@@ -299,8 +361,7 @@ public static String getMail2(String choice) {
 					e.printStackTrace();
 					System.out.println("Email.java got here15");
 				}
-				return "hi";
-				
+				return "hi";			
 			}
 			// Use a suitable FetchProfile
 			FetchProfile fp = new FetchProfile();
@@ -332,7 +393,6 @@ public static String getMail2(String choice) {
 		return "hi";
 	}
 */
-	
 	//grabs emails containing passwords for retailers created by distributors
 	public String getMail3(String choice, String region) {
 		if(tries++ == 7){

@@ -154,9 +154,9 @@ public class QA_UK_Agent  {
 				
 				Email q = new Email(usr);
 				String w = q.getMail2("code");
-				if(w.equals("hi")) return false;
+				//if(w.equals("hi")) return false;
 				int r = w.indexOf("is:");
-				w=w.substring(r+3,r+12);
+				//w=w.substring(r+3,r+12);
 
 				driver.findElement(By.id("temp_code")).clear();
 				driver.findElement(By.id("temp_code")).sendKeys(w);
