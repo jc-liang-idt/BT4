@@ -187,12 +187,12 @@ public static String getMail2(String choice) {
 			DateFormat formatter = new SimpleDateFormat("HH:mm:ss:SSS");
 			
 			long messageReceived = message.getReceivedDate().getTime();
-			long lowerBound = System.currentTimeMillis() - 6000;	
-			long upperBound = System.currentTimeMillis() + 6000; 
+			long lowerBound = System.currentTimeMillis() - 40000;	
+			long upperBound = System.currentTimeMillis() + 40000; 
 			
-			System.out.println(formatter.format(messageReceived));
-			System.out.println(formatter.format(lowerBound));
-			System.out.println(formatter.format(upperBound));
+			System.out.println("lower bound: " + formatter.format(lowerBound));
+			System.out.println("received: " + formatter.format(messageReceived));
+			System.out.println("upper bound: " + formatter.format(upperBound));
 			
 			if (message.getSubject().toString().equals("BOSS Revolution Portal Security") 
 					&& message.getFrom()[0].toString().equals("pa-israel@corp.idt.net")
