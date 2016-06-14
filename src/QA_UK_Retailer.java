@@ -146,9 +146,9 @@ public class QA_UK_Retailer  {
 					System.out.println("here5");
 					//if(w.equals("hi")) return false;
 					System.out.println("here6");
-					int r = w.indexOf("is:");
+					int r = w.indexOf("is: ");
 					System.out.println("here7");
-					//w=w.substring(r+3,r+12);
+					w=w.substring(r+1,r+10);
 					System.out.println("here8");
 					System.out.println(w);
 
@@ -372,7 +372,7 @@ public class QA_UK_Retailer  {
 		driver.findElement(By.id("business_entity_banks_attributes_0_account_holder")).sendKeys("John Snow");
 		driver.findElement(By.id("business_entity_banks_attributes_0_cc_account_number")).clear();
 		driver.findElement(By.id("business_entity_banks_attributes_0_cc_account_number")).sendKeys("4387751111111038");
-		new Select(driver.findElement(By.id("business_entity_banks_attributes_0_cc_exp_year"))).selectByVisibleText("2016");
+		new Select(driver.findElement(By.id("business_entity_banks_attributes_0_cc_exp_year"))).selectByVisibleText("2018");
 		driver.findElement(By.id("business_entity_submit")).click();
 		//if(isElementPresent(By.id("jqdialog_message"))) return false;
 		for (int second = 0;; second++) {
