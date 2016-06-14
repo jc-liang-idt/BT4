@@ -650,9 +650,9 @@ public class Runner{
 		if(testUKRetailer){
 			QA_UK_Retailer z = new QA_UK_Retailer("441142433949","1234", bossVersion, UKRupdate, UKRcreation, UKRpayment, UKRlinks,0);
 			z.setUp();
-			System.out.println("RUNNER");
-			System.out.println("UK Retailer user name: " + UKSusr);
-			System.out.println("UK Retailer password: " + UKSpw);
+			//System.out.println("RUNNER");
+			//System.out.println("UK Retailer user name: " + UKSusr);
+			//System.out.println("UK Retailer password: " + UKSpw);
 			if(z.test()){
 				z.tearDown();
 				z.print();

@@ -171,7 +171,7 @@ public static String getMail2(String choice) {
 		store = session.getStore("imaps"); 
 		store.connect(host, user, password); 
 		
-		System.out.println("connected");
+		//System.out.println("connected");
 		Folder inbox = store.getFolder("INBOX"); 
 		inbox.open(Folder.READ_WRITE);
 		
@@ -179,9 +179,9 @@ public static String getMail2(String choice) {
 		FlagTerm unseenFlagTerm = new FlagTerm(seen, false);
 		
 		Message[] messages = inbox.search(unseenFlagTerm); 
-		System.out.println("GOT TO MESSAGES");
+		//System.out.println("GOT TO MESSAGES");
 		for (int i =0 ; i < messages.length; i++){
-			System.out.println("got inside messages");
+			//System.out.println("got inside messages");
 			Message message = messages[i]; 
 			
 			DateFormat formatter = new SimpleDateFormat("HH:mm:ss:SSS");
@@ -190,20 +190,20 @@ public static String getMail2(String choice) {
 			long lowerBound = System.currentTimeMillis() - 40000;	
 			long upperBound = System.currentTimeMillis() + 40000; 
 			
-			System.out.println("lower bound: " + formatter.format(lowerBound));
-			System.out.println("received: " + formatter.format(messageReceived));
-			System.out.println("upper bound: " + formatter.format(upperBound));
+			//System.out.println("lower bound: " + formatter.format(lowerBound));
+			//System.out.println("received: " + formatter.format(messageReceived));
+			//System.out.println("upper bound: " + formatter.format(upperBound));
 			
 			if (message.getSubject().toString().equals("BOSS Revolution Portal Security") 
 					&& message.getFrom()[0].toString().equals("pa-israel@corp.idt.net")
 					&& messageReceived >= lowerBound && messageReceived <= upperBound
 					){
-				System.out.println("All 3 conditions met!" );
+				//System.out.println("All 3 conditions met!" );
 				String answerArray = message.getContent().toString(); 
 				//returnString = answerArray.substring(82, 91); 
 				int r = answerArray.indexOf("is: ");
 				returnString = answerArray.substring(r+3,r+12);
-				System.out.println("return string: " + returnString);
+				//System.out.println("return string: " + returnString);
 			}
 			
 		}

@@ -40,9 +40,9 @@ public class QA_UK_Retailer  {
 	private int type;
 
 	public QA_UK_Retailer(String a, String b, String c, boolean d, boolean e, boolean f, boolean g, int h){
-		System.out.println("UK RETAILER: ");
-		System.out.println("USER:  " + usr);
-		System.out.println("PASSWORD:  " + pw);
+		//System.out.println("UK RETAILER: ");
+		//System.out.println("USER:  " + usr);
+		//System.out.println("PASSWORD:  " + pw);
 		pw = b;
 		usr = a;
 		bossVersion = c;
@@ -110,52 +110,52 @@ public class QA_UK_Retailer  {
 
 	public boolean login(){
 		System.out.println("Logging in...");
-		System.out.println("IN LOGIN FUNCTION");
+		//System.out.println("IN LOGIN FUNCTION");
 		try {
 			assertEquals("Existing Retailers", driver.findElement(By.cssSelector("h2")).getText());
-			System.out.println("got past 1");
+			//System.out.println("got past 1");
 			driver.findElement(By.id("user_session_login")).clear();
-			System.out.println("got past 2");
+			//System.out.println("got past 2");
 			driver.findElement(By.id("user_session_login")).sendKeys(usr);
-			System.out.println("got past 3");
+			//System.out.println("got past 3");
 			driver.findElement(By.id("user_session_password")).clear();
-			System.out.println("got past 4");
+			//System.out.println("got past 4");
 			driver.findElement(By.id("user_session_password")).sendKeys(pw);
-			System.out.println("got past 5");
+			//System.out.println("got past 5");
 			driver.findElement(By.name("commit")).click();
-			System.out.println("got past 6");
+			//System.out.println("got past 6");
 			if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))){
 				//return false;
 			}
 
 			try {
-				System.out.println("did it even try this??????");
+				//System.out.println("did it even try this??????");
 				//assertEquals("Confirm Email and Mobile Number", driver.findElement(By.cssSelector("h1")).getText());
-				System.out.println("right before the do block");
+				//System.out.println("right before the do block");
 				do{
-					System.out.println("here1");
+					//System.out.println("here1");
 					driver.findElement(By.name("spec_email"));
-					System.out.println("here2");
+					//System.out.println("here2");
 					driver.findElement(By.name("spec_email")).sendKeys("testbossrev@gmail.com");
-					System.out.println("here3");
+					//System.out.println("here3");
 					driver.findElement(By.name("spec_email")).click();
 
 					Email q = new Email(usr);
-					System.out.println("here4");
+					//System.out.println("here4");
 					String w = q.getMail2("code");
-					System.out.println("here5");
+					//System.out.println("here5");
 					//if(w.equals("hi")) return false;
-					System.out.println("here6");
+					//System.out.println("here6");
 					int r = w.indexOf("is: ");
-					System.out.println("here7");
+					//System.out.println("here7");
 					w=w.substring(r+1,r+10);
-					System.out.println("here8");
-					System.out.println(w);
+					//System.out.println("here8");
+					//System.out.println(w);
 
 					driver.findElement(By.id("temp_code")).sendKeys(w);
-					System.out.println("here9");
+					//System.out.println("here9");
 					driver.findElement(By.name("commit")).click();
-					System.out.println("here10");
+					//System.out.println("here10");
 					for (int second = 0;; second++) {
 						if (second >= 60) fail("timeout");
 						try { if (isElementPresent(By.name("mobile_request_code_btn"))) break; } catch (Exception e) {}
@@ -729,9 +729,17 @@ public class QA_UK_Retailer  {
 		driver.findElement(By.id("sender_phone")).sendKeys(usr);
 		driver.findElement(By.id("imtu_request_email")).clear();
 		driver.findElement(By.id("imtu_request_email")).sendKeys("testbossrev@gmail.com");
-		driver.findElement(By.id("imtu_submit_button")).click();
+		driver.findElement(By.id("imtu_submit_button")).click(); // clicked the right thing
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 		try {
+			// 
+			// need to click on the Continue button
+			// driver.findElement(By.linkText("Continue")).click();
+			// switch to active modal frame
+			driver.switchTo().activeElement();
+			// find the Continue bottom from the modal
+			driver.findElement(By.xpath("//div[contains(@class, 'ui-dialog-buttonset')]/button[1]")).click();
+			
 			assertEquals("Thank you. Your IMTU purchase was successful.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
 			screenShot("IMTU");
 		} catch (Error e) {
@@ -748,9 +756,13 @@ public class QA_UK_Retailer  {
 		driver.findElement(By.id("sender_phone")).sendKeys(usr);
 		driver.findElement(By.id("imtu_request_email")).clear();
 		driver.findElement(By.id("imtu_request_email")).sendKeys("testbossrev@gmail.com");
-		driver.findElement(By.id("imtu_submit_button")).click();
+		driver.findElement(By.id("imtu_submit_button")).click(); 
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 		try {
+			// switch to active modal frame
+			driver.switchTo().activeElement();
+			// find the Continue bottom from the modal
+			driver.findElement(By.xpath("//div[contains(@class, 'ui-dialog-buttonset')]/button[1]")).click();
 			assertEquals("Thank you. The International Mobile Number has been recharged.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
 		} catch (Error e) {
 			return false;
@@ -783,6 +795,12 @@ public class QA_UK_Retailer  {
 		driver.findElement(By.id("imtu_submit_button")).click();
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 		try {
+			
+			// switch to active modal frame
+			driver.switchTo().activeElement();
+			// find the Continue bottom from the modal
+			driver.findElement(By.xpath("//div[contains(@class, 'ui-dialog-buttonset')]/button[1]")).click();
+			
 			assertEquals("Thank you. Your DMTU purchase was successful.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
 			screenShot("DMTU");
 		} catch (Error e) {
@@ -1231,7 +1249,7 @@ public class QA_UK_Retailer  {
 		System.out.println("Opening Retailer Portal");
 		driver.get(baseUrl + "retailers/login");
 		//log in///////////////////////////////////////////////1
-		System.out.println("GOING TO LOGIN()");
+		//System.out.println("GOING TO LOGIN()");
 		if(login()){
 			System.out.println("[Success]Login successful");
 			result[1]=1;

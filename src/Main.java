@@ -299,7 +299,7 @@ public class Main {
 	 */
 
 	public Thread run(){
-		System.out.println("RUN");
+		//System.out.println("RUN");
 		Thread t1 = new Thread(new Runnable() {
 			public void run(){
 				try {
@@ -312,8 +312,8 @@ public class Main {
 				}
 			}
 		});  
-		System.out.println("got out of run function");
-		System.out.println("t1: " + t1);
+		//System.out.println("got out of run function");
+		//System.out.println("t1: " + t1);
 		return t1;
 	}
 
@@ -3361,7 +3361,7 @@ public class Main {
 			public void actionPerformed(ActionEvent e) {
 				if(!startState)
 					t = new Runner();	
-				System.out.println("Runner t: " + t);
+				//System.out.println("Runner t: " + t);
 				/* define variables for JIRA tab */ 
 				t.postJira = jiraqa.isSelected();
 				t.Jira = jiraqai.getText();
