@@ -687,6 +687,12 @@ public class QA_HK_Retailer  {
 		driver.findElement(By.id("imtu_submit_button")).click();
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 		try {
+			
+			// switch to active modal frame
+			driver.switchTo().activeElement();
+			// find the Continue bottom from the modal
+			driver.findElement(By.xpath("//div[contains(@class, 'ui-dialog-buttonset')]/button[1]")).click();
+			
 			assertEquals("Thank you. Your IMTU purchase was successful.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
 			screenShot("IMTU");
 		} catch (Error e) {
@@ -706,6 +712,12 @@ public class QA_HK_Retailer  {
 		driver.findElement(By.id("imtu_submit_button")).click();
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 		try {
+			
+			// switch to active modal frame
+			driver.switchTo().activeElement();
+			// find the Continue bottom from the modal
+			driver.findElement(By.xpath("//div[contains(@class, 'ui-dialog-buttonset')]/button[1]")).click();
+			
 			assertEquals("Thank you. The International Mobile Number has been recharged.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
 		} catch (Error e) {
 			return false;
@@ -715,7 +727,8 @@ public class QA_HK_Retailer  {
 		new Select(driver.findElement(By.id("imtu_action"))).selectByVisibleText("Find Record");
 		driver.findElement(By.id("imtu_search_request_pin")).clear();
 		driver.findElement(By.id("imtu_search_request_pin")).sendKeys(pin);
-		driver.findElement(By.cssSelector("#find_card > div.imtu-partial > div.buttonsX > #imtu_submit_button")).click();
+		//driver.findElement(By.cssSelector("#find_card > div.imtu-partial > div.buttonsX > #imtu_submit_button")).click();
+		driver.findElement(By.xpath("//form[@id='find_card']/div[contains(@class, 'imtu-partial')]/div[contains(@class, 'buttonsX')]/input[@id='imtu_submit_button']")).click();
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 		try {
 			assertEquals(pin, driver.findElement(By.cssSelector("p.value")).getText());

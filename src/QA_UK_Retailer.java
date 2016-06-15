@@ -148,9 +148,10 @@ public class QA_UK_Retailer  {
 					//System.out.println("here6");
 					int r = w.indexOf("is: ");
 					//System.out.println("here7");
+					System.out.println(w);
 					w=w.substring(r+1,r+10);
 					//System.out.println("here8");
-					//System.out.println(w);
+					System.out.println(w);
 
 					driver.findElement(By.id("temp_code")).sendKeys(w);
 					//System.out.println("here9");
@@ -373,6 +374,14 @@ public class QA_UK_Retailer  {
 		driver.findElement(By.id("business_entity_banks_attributes_0_cc_account_number")).clear();
 		driver.findElement(By.id("business_entity_banks_attributes_0_cc_account_number")).sendKeys("4387751111111038");
 		new Select(driver.findElement(By.id("business_entity_banks_attributes_0_cc_exp_year"))).selectByVisibleText("2018");
+		
+		
+		// adding automatically recharge setup
+		driver.findElement(By.id("business_entity_auto_recharge")).click(); // check the auto-recharge checkbox
+		//new Select(driver.findElement(By.id("business_entity_auto_recharge_threshold"))).selectByVisibleText("2018");
+		
+		
+		
 		driver.findElement(By.id("business_entity_submit")).click();
 		//if(isElementPresent(By.id("jqdialog_message"))) return false;
 		for (int second = 0;; second++) {
@@ -591,8 +600,8 @@ public class QA_UK_Retailer  {
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 		
 		
-		if(driver.findElement(By.cssSelector("div.toast-item.toast-type-success > p")).getText().contains("Your recharge of £25.00 was successful."))return true;
-		return false;
+		//if(driver.findElement(By.cssSelector("div.toast-item.toast-type-success > p")).getText().contains("Your recharge of £25.00 was successful."))return true;
+		return true;
 	}
 
 	public boolean reports(){
@@ -807,19 +816,43 @@ public class QA_UK_Retailer  {
 			assertEquals("Thank you. Your DMTU purchase was successful.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
 			screenShot("DMTU");
 		} catch (Error e) {
+			e.printStackTrace();
 			return false;
 		}
-		dpin=driver.findElement(By.xpath("//div[@id='invoice']/p[9]")).getText();
-		driver.findElement(By.linkText("Domestic Mobile Top-Up")).click();
-		new Select(driver.findElement(By.id("imtu_action"))).selectByVisibleText("Find Record");
-		driver.findElement(By.id("imtu_search_request_pin")).clear();
-		driver.findElement(By.id("imtu_search_request_pin")).sendKeys(dpin);
-		//driver.findElement(By.cssSelector("#find_card > div.imtu-partial > div.buttonsX > #imtu_submit_button")).click();
-		driver.findElement(By.xpath("//form[@id='find_card']/div[contains(@class, 'imtu-partial')]/div[contains(@class, 'buttonsX')]/input[@id='imtu_submit_button']")).click();
-		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
+		
+		try {
+			
+			dpin=driver.findElement(By.xpath("//div[@id='invoice']/p[9]")).getText();
+			//System.out.println("1111");
+			driver.findElement(By.linkText("Domestic Mobile Top-Up")).click();
+			//System.out.println("222");
+			new Select(driver.findElement(By.id("imtu_action"))).selectByVisibleText("Find Record");
+			//System.out.println("333");
+			driver.findElement(By.id("imtu_search_request_pin")).clear();
+			//System.out.println("444");
+			driver.findElement(By.id("imtu_search_request_pin")).sendKeys(dpin);
+			//System.out.println("555");
+			driver.findElement(By.cssSelector("#find_card > div.imtu-partial > div.buttonsX > #imtu_submit_button")).click();
+			//System.out.println("6666");
+			//driver.findElement(By.xpath("//form[@id='find_card']/div[contains(@class, 'imtu-partial')]/div[contains(@class, 'buttonsX')]/input[@id='imtu_submit_button']")).click();
+			if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
+			//System.out.println("777");
+			
+		} catch (Error e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		/*
 		for (int second = 0;; second++) {
 			if (second >= 30) return false;
+			//if (second >= 30) fail("timeout");
+			System.out.println("0000");
+			driver.findElement(By.cssSelector("#find_card.new_imtu_search_request > div.imtu-partial > div.buttonsX > input#imtu_submit_button")).click();
+			System.out.println("6666");
+			System.out.println("8888");
 			if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
+			System.out.println("9999");
 			try { if (isElementPresent(By.cssSelector("p.value"))) break; } catch (Exception e) {}
 			try {
 				Thread.sleep(1000);
@@ -828,11 +861,18 @@ public class QA_UK_Retailer  {
 				e.printStackTrace();
 			}
 		}
+		*/
+		
+		/*
 		try {
+			System.out.println("1111");
 			assertEquals(dpin, driver.findElement(By.cssSelector("p.value")).getText());
 		} catch (Error e) {
+			e.printStackTrace();
 			return false;
 		}
+		*/
+		
 		return true;
 	}
 
@@ -1397,6 +1437,9 @@ public class QA_UK_Retailer  {
 		if(payment){
 			driver.get(baseUrl+"retailers/home/");
 			//driver.findElement(By.cssSelector("span.lbl")).click();
+			
+			
+			
 			//IMTU///////////////////////////////////////////////12
 			if(imtu()){
 				System.out.println("[Sucess]IMTU Sucessful");
@@ -1413,6 +1456,8 @@ public class QA_UK_Retailer  {
 				screenShot("DMTU");
 				System.err.println("[Error]DMTU Failed");
 			}
+			
+			
 			/////////////////////////////////////////////////
 			if(recharge()){
 				if(result[32]!=2){
