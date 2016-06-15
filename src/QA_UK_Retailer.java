@@ -589,9 +589,16 @@ public class QA_UK_Retailer  {
 		}
 		driver.findElement(By.name("commit")).click();
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
+<<<<<<< HEAD
 		//if(driver.findElement(By.cssSelector("div.toast-item.toast-type-success > p")).getText().contains("Your recharge of £25.00 was successful."))return true;
 		//return false;
 		return true; 
+=======
+		
+		
+		if(driver.findElement(By.cssSelector("div.toast-item.toast-type-success > p")).getText().contains("Your recharge of £25.00 was successful."))return true;
+		return false;
+>>>>>>> 1d51988ae639ce11de7e691bf0c88a4ae65700ba
 	}
 
 	public boolean reports(){
@@ -733,9 +740,7 @@ public class QA_UK_Retailer  {
 		driver.findElement(By.id("imtu_submit_button")).click(); // clicked the right thing
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 		try {
-			// 
-			// need to click on the Continue button
-			// driver.findElement(By.linkText("Continue")).click();
+
 			// switch to active modal frame
 			driver.switchTo().activeElement();
 			// find the Continue bottom from the modal
@@ -764,6 +769,7 @@ public class QA_UK_Retailer  {
 			driver.switchTo().activeElement();
 			// find the Continue bottom from the modal
 			driver.findElement(By.xpath("//div[contains(@class, 'ui-dialog-buttonset')]/button[1]")).click();
+			
 			assertEquals("Thank you. The International Mobile Number has been recharged.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
 		} catch (Error e) {
 			return false;
@@ -773,7 +779,9 @@ public class QA_UK_Retailer  {
 		driver.findElement(By.id("imtu_search_request_pin")).click();
 		driver.findElement(By.id("imtu_search_request_pin")).clear();
 		driver.findElement(By.id("imtu_search_request_pin")).sendKeys(pin);
-		driver.findElement(By.cssSelector("#find_card > div.imtu-partial > div.buttonsX > #imtu_submit_button")).click();
+		//driver.findElement(By.cssSelector("#find_card > div.imtu-partial > div.buttonsX > #imtu_submit_button")).click();
+		driver.findElement(By.xpath("//form[@id='find_card']/div[contains(@class, 'imtu-partial')]/div[contains(@class, 'buttonsX')]/input[@id='imtu_submit_button']")).click();
+		
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 		try {
 			assertEquals(pin, driver.findElement(By.cssSelector("p.value")).getText());
@@ -813,7 +821,8 @@ public class QA_UK_Retailer  {
 		new Select(driver.findElement(By.id("imtu_action"))).selectByVisibleText("Find Record");
 		driver.findElement(By.id("imtu_search_request_pin")).clear();
 		driver.findElement(By.id("imtu_search_request_pin")).sendKeys(dpin);
-		driver.findElement(By.cssSelector("#find_card > div.imtu-partial > div.buttonsX > #imtu_submit_button")).click();
+		//driver.findElement(By.cssSelector("#find_card > div.imtu-partial > div.buttonsX > #imtu_submit_button")).click();
+		driver.findElement(By.xpath("//form[@id='find_card']/div[contains(@class, 'imtu-partial')]/div[contains(@class, 'buttonsX')]/input[@id='imtu_submit_button']")).click();
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 		for (int second = 0;; second++) {
 			if (second >= 10) return false;
