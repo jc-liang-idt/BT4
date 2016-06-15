@@ -589,16 +589,12 @@ public class QA_UK_Retailer  {
 		}
 		driver.findElement(By.name("commit")).click();
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
-<<<<<<< HEAD
+
 		//if(driver.findElement(By.cssSelector("div.toast-item.toast-type-success > p")).getText().contains("Your recharge of £25.00 was successful."))return true;
 		//return false;
 		return true; 
-=======
-		
-		
-		if(driver.findElement(By.cssSelector("div.toast-item.toast-type-success > p")).getText().contains("Your recharge of £25.00 was successful."))return true;
-		return false;
->>>>>>> 1d51988ae639ce11de7e691bf0c88a4ae65700ba
+
+
 	}
 
 	public boolean reports(){
