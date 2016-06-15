@@ -820,32 +820,43 @@ public class QA_UK_Retailer  {
 		//driver.findElement(By.cssSelector("#find_card > div.imtu-partial > div.buttonsX > #imtu_submit_button")).click();
 		driver.findElement(By.xpath("//form[@id='find_card']/div[contains(@class, 'imtu-partial')]/div[contains(@class, 'buttonsX')]/input[@id='imtu_submit_button']")).click();
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
+		System.out.println("got here in dmtu");
+		//driver.findElement(By.cssSelector("div.buttonsX > #imtu_submit_button")).click(); 
+		//driver.findElement(By.xpath("//form[@id='find_card']/div[contains(@class, 'imtu-partial')]/div[contains(@class, 'buttonsX')]/input[@id='imtu_submit_button']")).click();
+		driver.findElement(By.name("search-pin")).click(); 
+		/*
 		for (int second = 0;; second++) {
+			System.out.println("got into for loop");
+			//driver.findElement(By.xpath("//form[@id='find_card']/div[contains(@class, 'imtu-partial')]/div[contains(@class, 'buttonsX')]/input[@name='search-pin']")).click();
 			if (second >= 10) return false;
 			if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
+			/*
 			try { 
+				System.out.println("is it here");
+				
 				if (isElementPresent(By.cssSelector("p.value"))) 
 					break; 
+				
+				driver.findElement(By.className("buttonsX")).click(); 
+			
+				
 			} 
 			catch (Exception e) {
 				System.out.println("first and a half try block in DMTU");
 			}
+		
+		*/
 			try {
 				Thread.sleep(1000);
-			} catch (InterruptedException e) {
+			} 
+			catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				System.out.println("second try block in DMTU");
 				e.printStackTrace();
+				return false;
 			}
+			return true;
 		}
-		try {
-			//assertEquals(dpin, driver.findElement(By.cssSelector("p.value")).getText());
-		} catch (Error e) {
-			System.out.println("third try block in DMTU");
-			return false;
-		}
-		return true;
-	}
 
 	public boolean custSignUp(){
 		System.out.println("Testing Customer Sign Up...");
@@ -1020,20 +1031,24 @@ public class QA_UK_Retailer  {
 		System.out.println("Testing Customer Referral Program...");
 		driver.findElement(By.linkText("Customer Referral Program")).click();
 		try {
-			assertEquals("Customer Referral Program", driver.findElement(By.cssSelector("h1")).getText());
+			assertEquals("Get Paid to refer your clients, colleagues, and friends to Boss Revolution", driver.findElement(By.cssSelector("h2")).getText());
 		} catch (Error e) {
 			return false;
 		}
+		/*
 		try {
 			assertTrue(isElementPresent(By.id("qr_home_image")));
 		} catch (Error e) {
 			return false;
 		}
+		*/
+		
 		try {
 			assertTrue(isElementPresent(By.id("qr_new_image")));
 		} catch (Error e) {
 			return false;
 		}
+		/*
 		try {
 			assertEquals("CUSTOMER SITE", driver.findElement(By.cssSelector("div.whalfpx.dib > h2")).getText());
 		} catch (Error e) {
@@ -1044,6 +1059,7 @@ public class QA_UK_Retailer  {
 		} catch (Error e) {
 			return false;
 		}
+		 */
 		return true;
 	}
 
