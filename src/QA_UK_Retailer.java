@@ -559,6 +559,7 @@ public class QA_UK_Retailer  {
 		try {
 			assertEquals("Recharge", driver.findElement(By.cssSelector("h1")).getText());
 		} catch (Error e) {
+			e.printStackTrace();
 			return false;
 		}
 		if(isElementPresent(By.linkText("Please add one to your account."))){
@@ -582,22 +583,34 @@ public class QA_UK_Retailer  {
 			try {
 				assertEquals("Account successfully updated.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
 			} catch (Error e) {
+				e.printStackTrace();
 				return false;
 			}
 			driver.findElement(By.linkText("Recharge")).click();
 		}
-		if(!isElementPresent(By.id("amount"))){
-			result[32]=2;
-			return true;
-		}
-		if(isElementPresent(By.xpath("//form[@id='recharge_form']/div[3]/label"))){
-			if(driver.findElement(By.xpath("//form[@id='recharge_form']/div[3]/label")).getText().equals("Verification Code")){
-				driver.findElement(By.id("cvv2")).clear();
-				driver.findElement(By.id("cvv2")).sendKeys("123");
+		
+		try {
+			if(!isElementPresent(By.id("amount"))){
+				result[32]=2;
+				return true;
 			}
+			if(isElementPresent(By.xpath("//form[@id='recharge_form']/div[3]/label"))){
+				if(driver.findElement(By.xpath("//form[@id='recharge_form']/div[3]/label")).getText().equals("Verification Code")){
+					driver.findElement(By.id("cvv2")).clear();
+					driver.findElement(By.id("cvv2")).sendKeys("123");
+				}
+			}
+			driver.findElement(By.name("commit")).click();
+			System.out.println("before returning false");
+			if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) {
+				System.out.println("Error on the recharge page, could be LIMIT_EXCEED problem!");
+				return false; // sometimes can throw error
+			}
+			System.out.println("after returning false");
+		} catch (Error e) {
+			e.printStackTrace();
+			return false;
 		}
-		driver.findElement(By.name("commit")).click();
-		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 
 		//if(driver.findElement(By.cssSelector("div.toast-item.toast-type-success > p")).getText().contains("Your recharge of £25.00 was successful."))return true;
 		//return false;
