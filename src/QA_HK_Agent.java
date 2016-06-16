@@ -888,6 +888,7 @@ public class QA_HK_Agent  {
 		}
 		if(payment){
 			//IMTU///////////////////////////////////////////////12
+			/*
 			if(imtu()){
 				System.out.println("[Sucess]IMTU Sucessful");
 				result[12]=1;
@@ -895,6 +896,7 @@ public class QA_HK_Agent  {
 				screenShot("IMTU");
 				System.err.println("[Error]IMTU Failed");
 			}
+			*/
 		}
 		if(links){
 			//Report///////////////////////////////////////////////14
