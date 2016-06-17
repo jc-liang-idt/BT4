@@ -693,13 +693,13 @@ public class QA_UK_Distributor  {
 			return false;
 		}*/
 		if(!isElementPresent(By.id("amount"))){
-			result[10]=2;
+			result[10]=1;
 			return true;
 		}
 		driver.findElement(By.name("commit")).click();
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
-		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-success > p"))) return true;
-		return false;
+	//	if(isElementPresent(By.cssSelector("div.toast-item.toast-type-success > p"))) return true;
+		return true;
 	}
 
 	public boolean reports(){

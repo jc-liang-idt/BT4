@@ -193,13 +193,29 @@ public class QA_HK_Retailer  {
 				if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 				
 				Email q = new Email(usr);
+				System.out.println("email1");
+				String w = q.getMail2("code");
+				System.out.println("email2");
+				//if(w.equals("hi")) return false;
+				System.out.println("email3");
+				System.out.println(w);
+				int r = w.indexOf("is: ");
+				System.out.println("email 4");
+				w=w.substring(r+1,r+10);
+				System.out.println("w is: " + w);
+				System.out.println("email 5");
+				
+				/*
+				Email q = new Email(usr);
 				String w = q.getMail2("code");
 				if(w.equals("hi")) return false;
 				int r = w.indexOf("is: ");
+				System.out.println("r is");
 				System.out.println("before: " + w);
-				w=w.substring(r+1,r+10);
+				w=w.substring(r+3,r+12);
 				System.out.println("after: "+ w);
-
+				 */
+				
 				driver.findElement(By.id("temp_code")).clear();
 				driver.findElement(By.id("temp_code")).sendKeys(w);
 				driver.findElement(By.id("remember_computer")).click();
@@ -1274,7 +1290,7 @@ public class QA_HK_Retailer  {
 			/////////////////////////////////////////////////
 			driver.get(baseUrl+"retailers/home/");
 			driver.findElement(By.cssSelector("span.lbl")).click();
-			/*
+			
 			if(imtu()){
 				System.out.println("[Sucess]IMTU Sucessful");
 				result[12]=1;
@@ -1282,7 +1298,7 @@ public class QA_HK_Retailer  {
 				screenShot("IMTU");
 				System.err.println("[Error]IMTU Failed");
 			}
-			*/
+			
 			/////////////////////////////////////////////////
 			if(recharge()){
 				if(result[19]!=2){
