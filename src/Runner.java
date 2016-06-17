@@ -11,8 +11,8 @@ public class Runner{
 	boolean postJira = true; //Post to Jira?
 	String bossVersion = ""; //in order to store screenshots
 	String Jira = ""; //Jira task to post to
-	String jiraUsr = ""; //Jira username
-	String jiraPw = ""; //Jira password
+	String jiraUsr = "cliang"; //Jira username
+	String jiraPw = "Shortbanana24"; //Jira password
 	/////////////////////////////////////////////////////////
 
 	///////////////UK Customer Desktop Info//////////////////

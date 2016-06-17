@@ -73,7 +73,13 @@ public class Jira {
 		driver.findElement(By.id("attach-file")).click();
 		for (int second = 0;; second++) {
 			if (second >= 120) break;
-			try { if (isElementPresent(By.cssSelector("label.issue-drop-zone__button.aui-button"))) break; } catch (Exception e) {}
+			try { 
+				System.out.println("in if loop");
+				if (isElementPresent(By.cssSelector("label.issue-drop-zone__button.aui-button"))) 
+					System.out.println("lol is it not attaching anything");
+					break; 
+				} 
+				catch (Exception e) {}
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
@@ -84,8 +90,12 @@ public class Jira {
 		for(int y=0; y<picCount; y++){
 			//driver.findElement(By.name("tempFilename")).clear();
 			//driver.findElement(By.name("tempFilename")).sendKeys(pics[y]);
-			driver.findElement(By.cssSelector("label.issue-drop-zone__file.upfile")).sendKeys(pics[y]);
+			System.out.println("pics part");
 
+			driver.findElement(By.className("label.issue-drop-zone__button.aui-button")).sendKeys(pics[y]);
+			System.out.println("pic count: " + picCount + pics[y]); 
+		
+			
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
@@ -96,19 +106,30 @@ public class Jira {
 
 		driver.findElement(By.xpath("(//textarea[@id='comment'])[2]")).clear();
 		driver.findElement(By.xpath("(//textarea[@id='comment'])[2]")).sendKeys(type+"\n");
-		for(int y=1; y < r; y++)
+		for(int y=1; y < r; y++){
 			driver.findElement(By.xpath("(//textarea[@id='comment'])[2]")).sendKeys(results[y]+"\n");
-
+		}
+		System.out.println("not yet clicked");
 		driver.findElement(By.id("attach-file-submit")).click();
+		System.out.println("clicked it");
 		for (int second = 0;; second++) {
+			System.out.println("for loop");
 			if (second >= 120) break;
-			try { if (!isElementPresent(By.xpath("(//textarea[@id='comment'])[2]"))) break; } catch (Exception e) {}
+			/*
+			try { 
+				if (!isElementPresent(By.xpath("(//textarea[@id='comment'])[2]"))) break; 
+				} 
+			catch (Exception e) {
+					
+			}
 			try {
 				Thread.sleep(500);
-			} catch (InterruptedException e) {
+			} 
+			catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			*/
 		}
 		System.out.println("Posted Results");
 

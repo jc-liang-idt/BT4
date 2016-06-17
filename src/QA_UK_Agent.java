@@ -598,6 +598,7 @@ public class QA_UK_Agent  {
 		driver.findElement(By.id("imtu_request_email")).sendKeys("testbossrev@gmail.com");
 		driver.findElement(By.id("imtu_submit_button")).click();
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
+		System.out.println("0000");
 		try {
 			
 			// switch to active modal frame
@@ -608,6 +609,7 @@ public class QA_UK_Agent  {
 			assertEquals("Thank you. Your IMTU purchase was successful.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
 			screenShot("IMTU");
 		} catch (Error e) {
+			System.out.println("failed here");
 			return false;
 		}
 		pin = driver.findElement(By.xpath("//div[@id='invoice']/p[11]")).getText();
@@ -623,6 +625,7 @@ public class QA_UK_Agent  {
 		driver.findElement(By.id("imtu_request_email")).sendKeys("testbossrev@gmail.com");
 		driver.findElement(By.id("imtu_submit_button")).click();
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
+		System.out.println("1111");
 		try {
 			
 			// switch to active modal frame
@@ -632,6 +635,7 @@ public class QA_UK_Agent  {
 			
 			assertEquals("Thank you. The International Mobile Number has been recharged.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
 		} catch (Error e) {
+			System.out.println("failed here2");
 			return false;
 		}
 		driver.findElement(By.linkText("International Mobile Top-Up")).click();
@@ -641,9 +645,11 @@ public class QA_UK_Agent  {
 		driver.findElement(By.id("imtu_search_request_pin")).sendKeys(pin);
 		driver.findElement(By.cssSelector("#find_card > div.imtu-partial > div.buttonsX > #imtu_submit_button")).click();
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
+		System.out.println("2222");
 		try {
 			assertEquals(pin, driver.findElement(By.cssSelector("p.value")).getText());
 		} catch (Error e) {
+			System.out.println("failed here3");
 			return false;
 		}
 		return true;
