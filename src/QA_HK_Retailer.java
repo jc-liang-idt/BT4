@@ -200,6 +200,7 @@ public class QA_HK_Retailer  {
 				System.out.println("email3");
 				System.out.println(w);
 				int r = w.indexOf("is: ");
+				System.out.println(w);
 				System.out.println("email 4");
 				w=w.substring(r+1,r+10);
 				System.out.println("w is: " + w);

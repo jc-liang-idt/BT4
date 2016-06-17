@@ -279,7 +279,7 @@ public class QA_UK_SalesAgent {
 		}
 		driver.findElement(By.cssSelector("a.select_account_type > div")).click();
 		driver.findElement(By.id("business_entity_creation_load_amount")).clear();
-		driver.findElement(By.id("business_entity_creation_load_amount")).sendKeys("5");
+		driver.findElement(By.id("business_entity_creation_load_amount")).sendKeys("0");
 		//driver.findElement(By.id("business_entity_user_attributes_security_code")).clear();
 		//driver.findElement(By.id("business_entity_user_attributes_security_code")).sendKeys("1234");
 		//driver.findElement(By.id("business_entity_user_attributes_security_code_confirmation")).clear();
