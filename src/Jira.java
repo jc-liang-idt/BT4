@@ -91,9 +91,21 @@ public class Jira {
 			//driver.findElement(By.name("tempFilename")).clear();
 			//driver.findElement(By.name("tempFilename")).sendKeys(pics[y]);
 			System.out.println("pics part");
+			try {
+				driver.switchTo().activeElement();
+				System.out.println("switched to active element");
+				//driver.findElement(By.cssSelector("label.issue-drop-zone__file.upfile")).sendKeys(pics[y]);
+				//driver.findElement(By.xpath("//label[contains(@class, 'issue-drop-zone__button')]")).click();
+				driver.findElement(By.xpath("//label[contains(@class, 'issue-drop-zone__button')]")).sendKeys(pics[y]);
+				System.out.println("printed");
+				//driver.findElement(By.xpath("//div[contains(@class, 'issue-drop-zone__button')]/button[2]")).click();
+				System.out.println("pic count: " + picCount + pics[y]); 	
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
 
-			driver.findElement(By.className("label.issue-drop-zone__button.aui-button")).sendKeys(pics[y]);
-			System.out.println("pic count: " + picCount + pics[y]); 
+			//System.out.println("pic count: " + picCount + pics[y]); 
 		
 			
 			try {
