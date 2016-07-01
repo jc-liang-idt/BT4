@@ -1291,7 +1291,7 @@ public class QA_HK_Retailer  {
 			/////////////////////////////////////////////////
 			driver.get(baseUrl+"retailers/home/");
 			driver.findElement(By.cssSelector("span.lbl")).click();
-			
+			/*
 			if(imtu()){
 				System.out.println("[Sucess]IMTU Sucessful");
 				result[12]=1;
@@ -1299,7 +1299,7 @@ public class QA_HK_Retailer  {
 				screenShot("IMTU");
 				System.err.println("[Error]IMTU Failed");
 			}
-			
+			*/
 			/////////////////////////////////////////////////
 			if(recharge()){
 				if(result[19]!=2){
