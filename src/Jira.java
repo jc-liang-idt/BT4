@@ -1,15 +1,10 @@
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.Toolkit;
-import java.awt.datatransfer.StringSelection;
-import java.awt.event.KeyEvent;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class Jira {
+public class Jira extends Thread{
 	
 	public static void main (String[] args){
 		System.out.println("JIRA");
@@ -22,7 +17,8 @@ public class Jira {
 	private int picCount;
 	private int r;
 	private WebDriver driver = new FirefoxDriver();
-
+	private Thread dialog_handle_thread;
+	
 
 	public Jira(String a, String b, String c){
 		Jira = a;
@@ -52,6 +48,31 @@ public class Jira {
 		}  
 	}
 
+	public void run(){
+		dialog_handle_thread = new Thread(new Runnable() {
+			public void run(){
+				try {
+					System.out.println("Starting...");
+					// pass in the path into the dialog
+					// click the 'open' button
+					// sleep for like 20 seconds
+					Thread.sleep(1000);
+					// Child Thread do the upload file action and click on open, letting the program return to the main thread
+					System.out.println("before running exe");
+					Runtime.getRuntime().exec("C:\\Users\\jsu\\Desktop\\AutoIT\\FileUpload.exe");
+					//driver.findElement(By.xpath("//div[contains(@class, 'issue-drop-zone -dui-type-parsed')]/label[contains(@class, 'issue-drop-zone__button aui-button')]")).click();
+					System.out.println("after running exe");
+					
+					
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					System.out.println("exception in run try catch block: " + e1);
+					e1.printStackTrace();
+				}
+			}
+		});  
+	}
+	
 	public void post(String type, Report q){
 		System.out.println("Posting test results on JIRA: "+Jira+"...");
 		results = q.getResults();
@@ -71,15 +92,18 @@ public class Jira {
 
 		driver.findElement(By.cssSelector("span.dropdown-text")).click();
 		driver.findElement(By.id("attach-file")).click();
+		
 		for (int second = 0;; second++) {
 			if (second >= 120) break;
 			try { 
-				System.out.println("in if loop");
-				if (isElementPresent(By.cssSelector("label.issue-drop-zone__button.aui-button"))) 
-					System.out.println("lol is it not attaching anything");
+				System.out.println("in waiting for loop");
+				driver.switchTo().activeElement();
+				if (isElementPresent(By.cssSelector("label.issue-drop-zone__button.aui-button")) == true) {
+					System.out.println("Found 'Select Files' Button");
 					break; 
-				} 
-				catch (Exception e) {}
+				}
+			} 
+			catch (Exception e) {}
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
@@ -87,26 +111,33 @@ public class Jira {
 				e.printStackTrace();
 			}
 		}
+		
 		for(int y=0; y<picCount; y++){
-			//driver.findElement(By.name("tempFilename")).clear();
-			//driver.findElement(By.name("tempFilename")).sendKeys(pics[y]);
+
 			System.out.println("pics part");
 			try {
 				driver.switchTo().activeElement();
-				System.out.println("switched to active element");
-				//driver.findElement(By.cssSelector("label.issue-drop-zone__file.upfile")).sendKeys(pics[y]);
-				//driver.findElement(By.xpath("//label[contains(@class, 'issue-drop-zone__button')]")).click();
-				driver.findElement(By.xpath("//label[contains(@class, 'issue-drop-zone__button')]")).sendKeys(pics[y]);
-				System.out.println("printed");
-				//driver.findElement(By.xpath("//div[contains(@class, 'issue-drop-zone__button')]/button[2]")).click();
-				System.out.println("pic count: " + picCount + pics[y]); 	
+				System.out.println("pic count: " + picCount);
+				System.out.println(pics[y]); 
+				
+				// call Click in a separate thread, and then call the AutoIt script. Once the AutoIt script closes the dialog box, 
+				// the click will return, and the rest of your test can continue.
+				try {
+					run(); // call child thread
+				}
+				catch (Exception e) {
+					System.out.println("exception while running the child thread");
+					e.printStackTrace();
+				}
+				// Main Thread clicks on the button
+				driver.findElement(By.xpath("//div[contains(@class, 'issue-drop-zone -dui-type-parsed')]/label[contains(@class, 'issue-drop-zone__button aui-button')]")).click();
+				
+				
+				
 			}
 			catch(Exception e){
 				e.printStackTrace();
 			}
-
-			//System.out.println("pic count: " + picCount + pics[y]); 
-		
 			
 			try {
 				Thread.sleep(500);
