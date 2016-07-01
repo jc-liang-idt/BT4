@@ -48,7 +48,7 @@ public class Jira extends Thread{
 		}  
 	}
 
-	public void run(){
+/*	public void run(){
 		dialog_handle_thread = new Thread(new Runnable() {
 			public void run(){
 				try {
@@ -71,7 +71,7 @@ public class Jira extends Thread{
 				}
 			}
 		});  
-	}
+	} */
 	
 	public void post(String type, Report q){
 		System.out.println("Posting test results on JIRA: "+Jira+"...");
@@ -122,13 +122,13 @@ public class Jira extends Thread{
 				
 				// call Click in a separate thread, and then call the AutoIt script. Once the AutoIt script closes the dialog box, 
 				// the click will return, and the rest of your test can continue.
-				try {
+			/*	try {
 					run(); // call child thread
 				}
 				catch (Exception e) {
 					System.out.println("exception while running the child thread");
 					e.printStackTrace();
-				}
+				} */
 				// Main Thread clicks on the button
 				driver.findElement(By.xpath("//div[contains(@class, 'issue-drop-zone -dui-type-parsed')]/label[contains(@class, 'issue-drop-zone__button aui-button')]")).click();
 				
