@@ -766,6 +766,7 @@ public class Runner{
 		if(testCAAgent){
 			QA_CA_Agent z = new QA_CA_Agent(CAAusr, CAApw, CAAsa, bossVersion, CAAcreation, CAApayment, CAAlinks);
 			z.setUp();
+			System.out.println("after setup"); 
 			if(z.test()){
 				z.tearDown();
 				z.print();
@@ -1304,7 +1305,6 @@ public class Runner{
 			Jira qq = new Jira(Jira, jiraUsr, jiraPw);
 			// UK
 			if(testUKDist)
-				qq.post("**BOSS UK Distributor**", a1);
 			/* unsure if is used 
 			if(testUKR1)
 				qq.post("**BOSS UK Cash Retailer**", a2);	
@@ -1314,7 +1314,10 @@ public class Runner{
 			if(testUKSagent)
 				qq.post("**BOSS UK Sales Agent**", a4);
 			if(testUKRetailer)
-				qq.post("**BOSS UK Retailer**", a5);	
+				qq.post("**BOSS UK Re"
+						+ ""
+						+ ""
+						+ "tailer**", a5);	
 			if(testUKAgent)
 				qq.post("**BOSS UK Agent**", a6);	
 			if(testUKCustomer)

@@ -59,6 +59,7 @@ public class QA_UK_Retailer  {
 		System.setProperty("webdriver.firefox.bin", "Mozilla Firefox\\firefox.exe");
 		driver = new FirefoxDriver();
 		int qa = Runner.bossqa;
+		System.out.println("set up");
 		if(qa==0){
 			baseUrl = "http://uk.bossqa.cstage01.n2p.com/";
 		}else{

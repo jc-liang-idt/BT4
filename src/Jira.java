@@ -1,4 +1,5 @@
 import java.awt.AWTException;
+import java.io.*; 
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
@@ -6,14 +7,22 @@ import java.awt.event.KeyEvent;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
+
 
 public class Jira {
 	
 	public static void main (String[] args){
-		System.out.println("JIRA");
+		Jira testJira = new Jira("", "cliang", "Shortbanana24"); 
+		Report a1=new Report();
+		testJira.post("**BOSS UK Distributor**", a1);
 	}
+
+	
 	private String Jira;
 	private String jiraUsr;
 	private String jiraPw;
@@ -22,12 +31,25 @@ public class Jira {
 	private int picCount;
 	private int r;
 	private WebDriver driver = new FirefoxDriver();
+	
+	public void setUp() throws Exception {
+		//System.setProperty("webdriver.firefox.bin", "src/res/Mozilla Firefox/firefox.exe");
+		System.setProperty("webdriver.firefox.bin", "Mozilla Firefox\\firefox.exe");
+		driver = new FirefoxDriver();
+		int qa = Runner.bossqa;
+		if(qa==0){
+			String baseUrl = "http://uk.bossqa.cstage01.n2p.com/";
+		}else{
+			String baseUrl = "http://uk.bossqa"+qa+".cstage01.n2p.com/";
+		}
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
+	}
 
-	public Jira(String a, String b, String c){
-		Jira = a;
-		jiraUsr = b;
-		jiraPw = c;
+	public Jira(String jira, String jiraUsr, String jiraPw){
+		this.Jira = jira;
+		this.jiraUsr = jiraUsr;
+		this.jiraPw = jiraPw;
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		System.out.println("");
 		System.out.println("Opening JIRA Ticket: "+Jira);
@@ -96,10 +118,62 @@ public class Jira {
 				System.out.println("switched to active element");
 				//driver.findElement(By.cssSelector("label.issue-drop-zone__file.upfile")).sendKeys(pics[y]);
 				//driver.findElement(By.xpath("//label[contains(@class, 'issue-drop-zone__button')]")).click();
-				driver.findElement(By.xpath("//label[contains(@class, 'issue-drop-zone__button')]")).sendKeys(pics[y]);
-				System.out.println("printed");
+				/* most plausible*/ 
+				//driver.findElement(By.xpath("//label[contains(@class, 'issue-drop-zone__button')]")).sendKeys(pics[y]);
+				/*WebElement fileInput = driver.findElement(By.name("issue-drop-zone__button")); 
+				System.out.println("found or not: " + driver.findElement(By.name("issue-drop-zone__button")));
+				fileInput.sendKeys(pics[y]); 
+				System.out.println(pics[y]);
+				*/				
 				//driver.findElement(By.xpath("//div[contains(@class, 'issue-drop-zone__button')]/button[2]")).click();
-				System.out.println("pic count: " + picCount + pics[y]); 	
+				//System.out.println("pic count: " + picCount + pics[y]); 
+				//driver.findElement(By.cssSelector("label.issue-drop-zone__button.aui-button")).sendKeys(pics[y]);
+			/*
+		
+				if (driver.findElement(By.cssSelector("label.issue-drop-zone__button.aui-button"))== null){
+					System.out.println("null 1");
+				}
+				else{
+				
+					System.out.println("1");
+					
+					File Ifile = new File(pics[y]); 
+					WebElement inputField = driver.findElement(By.cssSelector("label.issue-drop-zone__button.aui-button"));
+					inputField.sendKeys(Ifile.getAbsolutePath());
+			
+					//System.out.println(driver.findElement(By.cssSelector("label.issue-drop-zone__button.aui-button")));
+					//driver.findElement(By.cssSelector("label.issue-drop-zone__button.aui-button")).click(); 
+					//driver.findElement(By.id("attach-file-submit")).click(); 
+			
+					String jsScript = "var input = document.getElementsByTagName('input')[0];"
+					        +"input.value='/BOSS_Screenshots_v4.81';";
+					JavascriptExecutor executor = (JavascriptExecutor)driver;
+				}
+		*/
+				//driver.findElement(By.xpath("//div[contains(@class, 'issue-drop-zone -dui-type-parsed')]/label[contains(@class, 'issue-drop-zone__button aui-button')]")).sendKeys(pics[y]);
+				if (driver.findElement(By.xpath("//div[contains(@class, 'issue-drop-zone -dui-type-parsed')]/label[contains(@class, 'issue-drop-zone__button aui-button')]"))== null ){
+					System.out.println("null 2");
+				}
+				else{
+					System.out.println("2");
+					
+					String jsScript = "var input = document.getElementsByTagName('label')[0];"
+					        +"input.value='/C/BOSS_Screenshots_v4.81';" + "console.log(input)";
+					System.out.println("jsScript script: " + jsScript);
+					
+					JavascriptExecutor executor = (JavascriptExecutor)driver;
+					executor.executeScript(jsScript);
+					/*
+					File fileI = new File(pics[y]);
+					WebElement fieldInput = driver.findElement(By.xpath("//div[contains(@class, 'issue-drop-zone -dui-type-parsed')]/label[contains(@class, 'issue-drop-zone__button aui-button')]")); 
+					fieldInput.sendKeys(fileI.getAbsolutePath());
+					*/
+					//System.out.println(driver.findElement(By.xpath("//div[contains(@class, 'issue-drop-zone -dui-type-parsed')]/label[contains(@class, 'issue-drop-zone__button aui-button')]"))); 
+					//driver.findElement(By.cssSelector("label.issue-drop-zone__button.aui-button")).click(); 
+					//driver.findElement(By.xpath("//div[contains(@class, 'issue-drop-zone -dui-type-parsed')]/label[contains(@class, 'issue-drop-zone__button aui-button')]")).sendKeys(pics[y]);
+					//driver.findElement(By.id("attach-file-submit")).click(); 
+				
+				}
 			}
 			catch(Exception e){
 				e.printStackTrace();
