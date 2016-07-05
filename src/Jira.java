@@ -1,12 +1,11 @@
-<<<<<<< HEAD
+
 import java.awt.AWTException;
 import java.io.*; 
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
-=======
->>>>>>> 329f5bdbb228b512d1e814e3c218d232882d2dac
+
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -15,13 +14,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-<<<<<<< HEAD
 
 
-public class Jira {
-=======
+
+
+
 public class Jira extends Thread{
->>>>>>> 329f5bdbb228b512d1e814e3c218d232882d2dac
+
 	
 	public static void main (String[] args){
 		Jira testJira = new Jira("", "cliang", "Shortbanana24"); 
@@ -38,7 +37,7 @@ public class Jira extends Thread{
 	private int picCount;
 	private int r;
 	private WebDriver driver = new FirefoxDriver();
-<<<<<<< HEAD
+
 	
 	public void setUp() throws Exception {
 		//System.setProperty("webdriver.firefox.bin", "src/res/Mozilla Firefox/firefox.exe");
@@ -53,10 +52,10 @@ public class Jira extends Thread{
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
 	}
-=======
+
 	private Thread dialog_handle_thread;
 	
->>>>>>> 329f5bdbb228b512d1e814e3c218d232882d2dac
+
 
 	public Jira(String jira, String jiraUsr, String jiraPw){
 		this.Jira = jira;
@@ -155,7 +154,7 @@ public class Jira extends Thread{
 			System.out.println("pics part");
 			try {
 				driver.switchTo().activeElement();
-<<<<<<< HEAD
+
 				System.out.println("switched to active element");
 				//driver.findElement(By.cssSelector("label.issue-drop-zone__file.upfile")).sendKeys(pics[y]);
 				//driver.findElement(By.xpath("//label[contains(@class, 'issue-drop-zone__button')]")).click();
@@ -192,7 +191,7 @@ public class Jira extends Thread{
 				}
 		*/
 				//driver.findElement(By.xpath("//div[contains(@class, 'issue-drop-zone -dui-type-parsed')]/label[contains(@class, 'issue-drop-zone__button aui-button')]")).sendKeys(pics[y]);
-				if (driver.findElement(By.xpath("//div[contains(@class, 'issue-drop-zone -dui-type-parsed')]/label[contains(@class, 'issue-drop-zone__button aui-button')]"))== null ){
+				if (driver.findElement(By.xpath("id('attach-file')/x:div[1]/x:fieldset/x:div/x:div/x:label"))== null ){
 					System.out.println("null 2");
 				}
 				else{
@@ -215,7 +214,7 @@ public class Jira extends Thread{
 					//driver.findElement(By.id("attach-file-submit")).click(); 
 				
 				}
-=======
+
 				System.out.println("pic count: " + picCount);
 				System.out.println(pics[y]); 
 				
@@ -232,8 +231,6 @@ public class Jira extends Thread{
 				driver.findElement(By.xpath("//div[contains(@class, 'issue-drop-zone -dui-type-parsed')]/label[contains(@class, 'issue-drop-zone__button aui-button')]")).click();
 				
 				
-				
->>>>>>> 329f5bdbb228b512d1e814e3c218d232882d2dac
 			}
 			catch(Exception e){
 				e.printStackTrace();
