@@ -75,31 +75,6 @@ public class Jira{
 			driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);  
 		}  
 	}
-
-/*	public void run(){
-		dialog_handle_thread = new Thread(new Runnable() {
-			public void run(){
-				try {
-					System.out.println("Starting...");
-					// pass in the path into the dialog
-					// click the 'open' button
-					// sleep for like 20 seconds
-					Thread.sleep(1000);
-					// Child Thread do the upload file action and click on open, letting the program return to the main thread
-					System.out.println("before running exe");
-					Runtime.getRuntime().exec("C:\\Users\\jsu\\Desktop\\AutoIT\\FileUpload.exe");
-					//driver.findElement(By.xpath("//div[contains(@class, 'issue-drop-zone -dui-type-parsed')]/label[contains(@class, 'issue-drop-zone__button aui-button')]")).click();
-					System.out.println("after running exe");
-					
-					
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					System.out.println("exception in run try catch block: " + e1);
-					e1.printStackTrace();
-				}
-			}
-		});  
-	} */
 	
 	public void post(String type, Report q){
 		System.out.println("Posting test results on JIRA: "+Jira+"...");
