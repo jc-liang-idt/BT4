@@ -19,7 +19,9 @@ public class Jira{
 	
 	public static void main (String[] args){
 		Jira testJira = new Jira("", "cliang", "Shortbanana24"); 
+		System.out.println("past JIRA constructor");
 		Report a1=new Report();
+		System.out.println("past report");
 		testJira.post("**BOSS UK Distributor**", a1);
 	}
 

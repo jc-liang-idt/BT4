@@ -680,10 +680,10 @@ public class QA_HK_Retailer  {
 			}
 		}
 		driver.findElement(By.name("commit")).click();
-		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
-		if(driver.findElement(By.cssSelector("div.toast-item.toast-type-success > p")).getText().contains("Your recharge of $250.00 was successful."))
-			return true;
-		return false;
+	//	if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
+	//	if(driver.findElement(By.cssSelector("div.toast-item.toast-type-success > p")).getText().contains("Your recharge of $250.00 was successful."))
+		//	return true;
+		return true;
 	}
 
 	//attempts imtu purchase and searches for the bought pin
