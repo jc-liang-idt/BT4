@@ -18,7 +18,8 @@ import com.thoughtworks.selenium.webdriven.JavascriptLibrary;
 public class Jira{
 	
 	public static void main (String[] args){
-		Jira testJira = new Jira("", "cliang", "Shortbanana24"); 
+		System.out.println("start JIRA constructor");
+		Jira testJira = new Jira("", "jsu", "BRniKBA6"); 
 		System.out.println("past JIRA constructor");
 		Report a1=new Report();
 		System.out.println("past report");
@@ -63,7 +64,8 @@ public class Jira{
 		driver.findElement(By.id("login-form-password")).clear();
 		driver.findElement(By.id("login-form-password")).sendKeys(jiraPw);
 		driver.findElement(By.id("login-form-submit")).click();
-
+		System.out.println("finishing up the constructor");
+		
 	}
 
 	private boolean isElementPresent(By by){  
@@ -81,18 +83,27 @@ public class Jira{
 	public void post(String type, Report q){
 		System.out.println("Posting test results on JIRA: "+Jira+"...");
 		results = q.getResults();
+		System.out.println("after results: "+ results);
 		pics = q.getPics();
 		picCount = q.getCount();
+		System.out.println("after pic count: "+ picCount);
 		r = q.getR();
-		for (int second = 0;; second++) {
+		System.out.println("after getR");
+		
+		for (int second = 0; second <= 60; second++) {
+			System.out.println("Get into the for loop");
 			if (second >= 60) break;
+			
 			try { if (isElementPresent(By.cssSelector("#comment-issue > span.trigger-label"))) break; } catch (Exception e) {}
+			System.out.println("after the first try loop");
+			
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			System.out.println("after the second try loop");
 		}
 
 		System.out.println("before span dropdown");

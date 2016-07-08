@@ -190,8 +190,11 @@ public class QA_DE_Retailer  {
 				Email q = new Email(usr);
 				String w = q.getMail2("code");
 				if(w.equals("hi")) return false;
+				System.out.println("w is 1:::" + w);
 				int r = w.indexOf("is:");
-				w=w.substring(r+3,r+12);
+				System.out.println("w is 2:::" + w);
+				w=w.substring(r+1,r+10);
+				System.out.println("w is 3:::" + w);
 
 				driver.findElement(By.id("temp_code")).clear();
 				driver.findElement(By.id("temp_code")).sendKeys(w);
@@ -350,7 +353,7 @@ public class QA_DE_Retailer  {
 		driver.findElement(By.id("business_entity_banks_attributes_0_account_holder")).sendKeys("John Snow");
 		driver.findElement(By.id("business_entity_banks_attributes_0_cc_account_number")).clear();
 		driver.findElement(By.id("business_entity_banks_attributes_0_cc_account_number")).sendKeys("4387751111111038");
-		new Select(driver.findElement(By.id("business_entity_banks_attributes_0_cc_exp_year"))).selectByVisibleText("2016");
+		new Select(driver.findElement(By.id("business_entity_banks_attributes_0_cc_exp_year"))).selectByVisibleText("2020");
 		driver.findElement(By.id("business_entity_submit")).click();
 		//if(isElementPresent(By.id("jqdialog_message"))) return false;
 		for (int second = 0;; second++) {
@@ -948,8 +951,8 @@ public class QA_DE_Retailer  {
 			assertEquals("Customer Referral Program", driver.findElement(By.cssSelector("h1")).getText());
 		} catch (Error e) {
 			return false;
-		}
-		try {
+		} 
+	/*	try {
 			assertTrue(isElementPresent(By.id("qr_home_image")));
 		} catch (Error e) {
 			return false;
@@ -958,17 +961,17 @@ public class QA_DE_Retailer  {
 			assertTrue(isElementPresent(By.id("qr_new_image")));
 		} catch (Error e) {
 			return false;
-		}
+		} 
 		try {
 			assertEquals("CUSTOMER SITE", driver.findElement(By.cssSelector("div.whalfpx.dib > h2")).getText());
 		} catch (Error e) {
 			return false;
-		}
+		} 
 		try {
 			assertEquals("SIGNUP PAGE", driver.findElement(By.xpath("//div[@id='content']/table/tbody/tr/td[2]/div[2]/h2")).getText());
 		} catch (Error e) {
 			return false;
-		}
+		}  */
 		return true;
 	}
 
@@ -1324,13 +1327,13 @@ public class QA_DE_Retailer  {
 			driver.get(baseUrl+"retailers/home/");
 			//driver.findElement(By.cssSelector("span.lbl")).click();
 			//IMTU///////////////////////////////////////////////12
-			if(imtu()){
+	/*		if(imtu()){
 				System.out.println("[Sucess]IMTU Sucessful");
 				result[12]=1;
 			}else{
 				screenShot("IMTU");
 				System.err.println("[Error]IMTU Failed");
-			}
+			}   
 			//DMTU///////////////////////////////////////////////13
 			if(dmtu()){
 				System.out.println("[Sucess]DMTU Sucessful");
@@ -1338,7 +1341,7 @@ public class QA_DE_Retailer  {
 			}else{
 				screenShot("DMTU");
 				System.err.println("[Error]DMTU Failed");
-			}
+			} */
 			/////////////////////////////////////////////////
 			if(recharge()){
 				if(result[32]!=2){

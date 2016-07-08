@@ -1291,8 +1291,8 @@ public class QA_HK_Retailer  {
 			/////////////////////////////////////////////////
 			driver.get(baseUrl+"retailers/home/");
 			driver.findElement(By.cssSelector("span.lbl")).click();
-			/*
-			if(imtu()){
+			
+/*			if(imtu()){
 				System.out.println("[Sucess]IMTU Sucessful");
 				result[12]=1;
 			}else{
