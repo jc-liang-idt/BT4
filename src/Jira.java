@@ -7,7 +7,6 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 
 import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -19,14 +18,22 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 
 
-public class Jira extends Thread{
 
-	
+
+
+
+import com.thoughtworks.selenium.webdriven.JavascriptLibrary;
+
+
+public class Jira{
+
+	/*
 	public static void main (String[] args){
 		Jira testJira = new Jira("", "cliang", "Shortbanana24"); 
 		Report a1=new Report();
 		testJira.post("**BOSS UK Distributor**", a1);
 	}
+	*/
 
 	
 	private String Jira;
@@ -37,6 +44,8 @@ public class Jira extends Thread{
 	private int picCount;
 	private int r;
 	private WebDriver driver = new FirefoxDriver();
+
+	private Thread dialog_handle_thread;
 
 	
 	public void setUp() throws Exception {
@@ -53,8 +62,9 @@ public class Jira extends Thread{
 
 	}
 
-	private Thread dialog_handle_thread;
+
 	
+
 
 
 	public Jira(String jira, String jiraUsr, String jiraPw){
@@ -65,15 +75,19 @@ public class Jira extends Thread{
 		System.out.println("");
 		System.out.println("Opening JIRA Ticket: "+Jira);
 		driver.get("https://bugs.idt.net/browse/" + Jira);
+		System.out.println("000");
 		driver.findElement(By.id("login-form-username")).clear();
 		driver.findElement(By.id("login-form-username")).sendKeys(jiraUsr);
+		System.out.println("111");
 		driver.findElement(By.id("login-form-password")).clear();
 		driver.findElement(By.id("login-form-password")).sendKeys(jiraPw);
 		driver.findElement(By.id("login-form-submit")).click();
-
+		System.out.println("222");
 	}
 
 	private boolean isElementPresent(By by){  
+		System.out.println("isElementPresent");
+		
 		driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);  
 		try{  
 			driver.findElement(by);  
@@ -111,6 +125,7 @@ public class Jira extends Thread{
 	} */
 	
 	public void post(String type, Report q){
+		System.out.println("post");
 		System.out.println("Posting test results on JIRA: "+Jira+"...");
 		results = q.getResults();
 		pics = q.getPics();
@@ -126,10 +141,12 @@ public class Jira extends Thread{
 				e.printStackTrace();
 			}
 		}
-
+		System.out.println("333");
+		System.out.println("before span dropdown");
 		driver.findElement(By.cssSelector("span.dropdown-text")).click();
 		driver.findElement(By.id("attach-file")).click();
-		
+		System.out.println("after the attach-file dropdown is clicked");
+		System.out.println("444");
 		for (int second = 0;; second++) {
 			if (second >= 120) break;
 			try { 
@@ -157,6 +174,7 @@ public class Jira extends Thread{
 
 				System.out.println("switched to active element");
 				//driver.findElement(By.cssSelector("label.issue-drop-zone__file.upfile")).sendKeys(pics[y]);
+
 				//driver.findElement(By.xpath("//label[contains(@class, 'issue-drop-zone__button')]")).click();
 				/* most plausible*/ 
 				//driver.findElement(By.xpath("//label[contains(@class, 'issue-drop-zone__button')]")).sendKeys(pics[y]);
@@ -191,6 +209,7 @@ public class Jira extends Thread{
 				}
 		*/
 				//driver.findElement(By.xpath("//div[contains(@class, 'issue-drop-zone -dui-type-parsed')]/label[contains(@class, 'issue-drop-zone__button aui-button')]")).sendKeys(pics[y]);
+				/*
 				if (driver.findElement(By.xpath("id('attach-file')/x:div[1]/x:fieldset/x:div/x:div/x:label"))== null ){
 					System.out.println("null 2");
 				}
@@ -203,21 +222,34 @@ public class Jira extends Thread{
 					
 					JavascriptExecutor executor = (JavascriptExecutor)driver;
 					executor.executeScript(jsScript);
-					/*
+					
 					File fileI = new File(pics[y]);
 					WebElement fieldInput = driver.findElement(By.xpath("//div[contains(@class, 'issue-drop-zone -dui-type-parsed')]/label[contains(@class, 'issue-drop-zone__button aui-button')]")); 
 					fieldInput.sendKeys(fileI.getAbsolutePath());
-					*/
+				
 					//System.out.println(driver.findElement(By.xpath("//div[contains(@class, 'issue-drop-zone -dui-type-parsed')]/label[contains(@class, 'issue-drop-zone__button aui-button')]"))); 
 					//driver.findElement(By.cssSelector("label.issue-drop-zone__button.aui-button")).click(); 
 					//driver.findElement(By.xpath("//div[contains(@class, 'issue-drop-zone -dui-type-parsed')]/label[contains(@class, 'issue-drop-zone__button aui-button')]")).sendKeys(pics[y]);
 					//driver.findElement(By.id("attach-file-submit")).click(); 
 				
 				}
+			*/
+
+				//driver.findElement(By.xpath("//label[contains(@class, 'issue-drop-zone__button aui-button')]")).sendKeys(pics[y]);
+				
 
 				System.out.println("pic count: " + picCount);
 				System.out.println(pics[y]); 
+				//WebElement input = driver.findElement(By.xpath("//label[contains(@class, 'issue-drop-zone__button aui-button')]"));
+				WebElement input = driver.findElement(By.className("upfile"));
+				//input.issue-drop-zone__file.ignore-inline-attach.upfile
+				//((JavascriptExecutor) driver).executeScript("arguments[0].click();", input);
+				JavascriptLibrary jsLib = new JavascriptLibrary(); 
+				jsLib.executeScript(driver, "document.getElementsByClassName('upfile')[0].style.display = 'block';");
+				input.sendKeys(pics[y]);
+				//driver.findElement(By.xpath("//label[contains(@class, 'issue-drop-zone__button aui-button')]")).click();
 				
+
 				// call Click in a separate thread, and then call the AutoIt script. Once the AutoIt script closes the dialog box, 
 				// the click will return, and the rest of your test can continue.
 			/*	try {
@@ -228,9 +260,10 @@ public class Jira extends Thread{
 					e.printStackTrace();
 				} */
 				// Main Thread clicks on the button
-				driver.findElement(By.xpath("//div[contains(@class, 'issue-drop-zone -dui-type-parsed')]/label[contains(@class, 'issue-drop-zone__button aui-button')]")).click();
+				//driver.findElement(By.xpath("//div[contains(@class, 'issue-drop-zone -dui-type-parsed')]/label[contains(@class, 'issue-drop-zone__button aui-button')]")).click();
 				
 				
+
 			}
 			catch(Exception e){
 				e.printStackTrace();

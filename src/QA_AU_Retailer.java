@@ -107,33 +107,53 @@ public class QA_AU_Retailer  {
 
 	public boolean login(){
 		System.out.println("Logging in...");
+		//System.out.println("IN LOGIN FUNCTION");
 		try {
 			assertEquals("Existing Retailers", driver.findElement(By.cssSelector("h2")).getText());
+			//System.out.println("got past 1");
 			driver.findElement(By.id("user_session_login")).clear();
+			//System.out.println("got past 2");
 			driver.findElement(By.id("user_session_login")).sendKeys(usr);
+			//System.out.println("got past 3");
 			driver.findElement(By.id("user_session_password")).clear();
+			//System.out.println("got past 4");
 			driver.findElement(By.id("user_session_password")).sendKeys(pw);
+			//System.out.println("got past 5");
 			driver.findElement(By.name("commit")).click();
+			//System.out.println("got past 6");
 			if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))){
-				return false;
+				//return false;
 			}
 
 			try {
-				assertEquals("Confirm Email and Mobile Number", driver.findElement(By.cssSelector("h1")).getText());
+				//System.out.println("did it even try this??????");
+				//assertEquals("Confirm Email and Mobile Number", driver.findElement(By.cssSelector("h1")).getText());
+				//System.out.println("right before the do block");
 				do{
-					driver.findElement(By.id("email")).clear();
-					driver.findElement(By.id("email")).sendKeys("testbossrev@gmail.com");
-					driver.findElement(By.name("email_request_code_btn")).click();
+					//System.out.println("here1");
+					driver.findElement(By.name("spec_email"));
+					//System.out.println("here2");
+					driver.findElement(By.name("spec_email")).sendKeys("testbossrev@gmail.com");
+					//System.out.println("here3");
+					driver.findElement(By.name("spec_email")).click();
 
 					Email q = new Email(usr);
-					String w = q.getMail2("is");
-					if(w.equals("hi")) return false;
-					int r = w.indexOf("is:");
-					w=w.substring(r+3,r+12);
-					System.out.println(w);
+					//System.out.println("here4");
+					String w = q.getMail2("code");
+					//System.out.println("here5");
+					//if(w.equals("hi")) return false;
+					//System.out.println("here6");
+					int r = w.indexOf("is: ");
+					//System.out.println("here7");
+					//System.out.println(w);
+					w=w.substring(r+1,r+10);
+					//System.out.println("here8");
+					//System.out.println(w);
 
-					driver.findElement(By.id("email_code")).sendKeys(w);
-					driver.findElement(By.name("verify_email_btn")).click();
+					driver.findElement(By.id("temp_code")).sendKeys(w);
+					//System.out.println("here9");
+					driver.findElement(By.name("commit")).click();
+					//System.out.println("here10");
 					for (int second = 0;; second++) {
 						if (second >= 60) fail("timeout");
 						try { if (isElementPresent(By.name("mobile_request_code_btn"))) break; } catch (Exception e) {}
@@ -170,7 +190,7 @@ public class QA_AU_Retailer  {
 					}
 				}
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(1500);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -185,16 +205,26 @@ public class QA_AU_Retailer  {
 				if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 				
 				Email q = new Email(usr);
+				System.out.println("email1");
 				String w = q.getMail2("code");
-				if(w.equals("hi")) return false;
+				System.out.println("email2");
+				//if(w.equals("hi")) return false;
+				System.out.println("email3");
 				int r = w.indexOf("is:");
+				System.out.println("email 4");
 				w=w.substring(r+3,r+12);
+				System.out.println("w is: " + w);
+				System.out.println("email 5");
 
 				driver.findElement(By.id("temp_code")).clear();
-				driver.findElement(By.id("temp_code")).sendKeys(w);
+				System.out.println("email 6");
+				driver.findElement(By.id("temp_code")).sendKeys(w);	
+				System.out.println("email 7");
 				driver.findElement(By.id("remember_computer")).click();
-			    driver.findElement(By.name("commit")).click();
-			    
+				System.out.println("email 8");
+				driver.findElement(By.name("commit")).click();
+				System.out.println("email 9");
+				
 				if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 			} catch (Error e) {
 			}
@@ -211,7 +241,6 @@ public class QA_AU_Retailer  {
 		}
 		return true;
 	}
-
 	public boolean homePage(){
 		System.out.println("Checking Home page...");
 		try {
@@ -335,7 +364,7 @@ public class QA_AU_Retailer  {
 		driver.findElement(By.id("business_entity_banks_attributes_0_account_holder")).sendKeys("John Snow");
 		driver.findElement(By.id("business_entity_banks_attributes_0_cc_account_number")).clear();
 		driver.findElement(By.id("business_entity_banks_attributes_0_cc_account_number")).sendKeys("4387751111111038");
-		new Select(driver.findElement(By.id("business_entity_banks_attributes_0_cc_exp_year"))).selectByVisibleText("2016");
+		new Select(driver.findElement(By.id("business_entity_banks_attributes_0_cc_exp_year"))).selectByVisibleText("2020");
 		driver.findElement(By.id("business_entity_submit")).click();
 		//if(isElementPresent(By.id("jqdialog_message"))) return false;
 		for (int second = 0;; second++) {
@@ -651,17 +680,28 @@ public class QA_AU_Retailer  {
 		System.out.println("Testing IMTU...");
 		driver.findElement(By.linkText("International Mobile Top-Up")).click();
 		new Select(driver.findElement(By.id("imtu_action"))).selectByVisibleText("Purchase PIN");
-		new Select(driver.findElement(By.id("country"))).selectByVisibleText("Nigeria");
+		new Select(driver.findElement(By.id("country"))).selectByVisibleText("CN");
+		new Select(driver.findElement(By.id("product"))).selectByVisibleText("$6.00");
 		driver.findElement(By.id("sender_phone")).clear();
 		driver.findElement(By.id("sender_phone")).sendKeys(usr);
 		driver.findElement(By.id("imtu_request_email")).clear();
 		driver.findElement(By.id("imtu_request_email")).sendKeys("testbossrev@gmail.com");
-		driver.findElement(By.id("imtu_submit_button")).click();
+		driver.findElement(By.id("imtu_submit_button")).click(); // clicked the right thing
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 		try {
-			assertEquals("Thank you. Your IMTU purchase was successful.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
-			screenShot("IMTU");
+
+			// switch to active modal frame
+			driver.switchTo().activeElement();
+			// find the Continue bottom from the modal
+			driver.findElement(By.xpath("//div[contains(@class, 'ui-dialog-buttonset')]/button[1]")).click();
+			
+			String imtuCheck = driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText();
+			if (imtuCheck == "Thank you. Your IMTU purchase was successful."){
+				return true;
+			}
+			
 		} catch (Error e) {
+			System.out.println("hereee");
 			return false;
 		}
 		pin = driver.findElement(By.xpath("//div[@id='invoice']/p[11]")).getText();
@@ -669,17 +709,30 @@ public class QA_AU_Retailer  {
 		new Select(driver.findElement(By.id("imtu_action"))).selectByVisibleText("Redeem PIN");
 		new Select(driver.findElement(By.id("country"))).selectByVisibleText("Nigeria");
 		driver.findElement(By.name("imtu_request[receiver_phone]")).clear();
-		driver.findElement(By.name("imtu_request[receiver_phone]")).sendKeys("2348077879985");
+		driver.findElement(By.name("imtu_request[receiver_phone]")).sendKeys("4125658987");
+		driver.findElement(By.name("imtu_request[pin]")).sendKeys("1234");
 		driver.findElement(By.id("pin")).sendKeys(pin);
 		driver.findElement(By.id("sender_phone")).clear();
 		driver.findElement(By.id("sender_phone")).sendKeys(usr);
 		driver.findElement(By.id("imtu_request_email")).clear();
 		driver.findElement(By.id("imtu_request_email")).sendKeys("testbossrev@gmail.com");
-		driver.findElement(By.id("imtu_submit_button")).click();
+		driver.findElement(By.id("imtu_submit_button")).click(); 
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 		try {
-			assertEquals("Thank you. The International Mobile Number has been recharged.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
+			// switch to active modal frames
+			driver.switchTo().activeElement();
+			// find the Continue bottom from the modal
+			driver.findElement(By.xpath("//div[contains(@class, 'ui-dialog-buttonset')]/button[1]")).click();
+			if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
+			String imtuCheck = driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText();
+			if (imtuCheck == "Thank you. Your IMTU purchase was successful."){
+				return true;
+			}
+		
+			
+			
 		} catch (Error e) {
+			System.out.println("no here");
 			return false;
 		}
 		driver.findElement(By.linkText("International Mobile Top-Up")).click();
@@ -687,7 +740,9 @@ public class QA_AU_Retailer  {
 		driver.findElement(By.id("imtu_search_request_pin")).click();
 		driver.findElement(By.id("imtu_search_request_pin")).clear();
 		driver.findElement(By.id("imtu_search_request_pin")).sendKeys(pin);
-		driver.findElement(By.cssSelector("#find_card > div.imtu-partial > div.buttonsX > #imtu_submit_button")).click();
+		//driver.findElement(By.cssSelector("#find_card > div.imtu-partial > div.buttonsX > #imtu_submit_button")).click();
+		driver.findElement(By.xpath("//form[@id='find_card']/div[contains(@class, 'imtu-partial')]/div[contains(@class, 'buttonsX')]/input[@id='imtu_submit_button']")).click();
+		
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 		try {
 			assertEquals(pin, driver.findElement(By.cssSelector("p.value")).getText());

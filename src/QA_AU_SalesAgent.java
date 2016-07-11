@@ -88,27 +88,78 @@ public class QA_AU_SalesAgent {
 	
 	public boolean login(){
 		System.out.println("Logging in...");
-		driver.findElement(By.id("user_session_login")).clear();
-		driver.findElement(By.id("user_session_login")).sendKeys(usr);
-		driver.findElement(By.id("user_session_password")).clear();
-		driver.findElement(By.id("user_session_password")).sendKeys(pw);
-		driver.findElement(By.name("commit")).click();
+		//System.out.println("IN LOGIN FUNCTION");
 		try {
-			assertEquals("Confirm Email and Mobile Number", driver.findElement(By.cssSelector("h1")).getText());
-			do{
-				driver.findElement(By.id("email")).clear();
-				driver.findElement(By.id("email")).sendKeys("testbossrev@gmail.com");
-				driver.findElement(By.name("email_request_code_btn")).click();
+			assertEquals("Existing Retailers", driver.findElement(By.cssSelector("h2")).getText());
+			//System.out.println("got past 1");
+			driver.findElement(By.id("user_session_login")).clear();
+			//System.out.println("got past 2");
+			driver.findElement(By.id("user_session_login")).sendKeys(usr);
+			//System.out.println("got past 3");
+			driver.findElement(By.id("user_session_password")).clear();
+			//System.out.println("got past 4");
+			driver.findElement(By.id("user_session_password")).sendKeys(pw);
+			//System.out.println("got past 5");
+			driver.findElement(By.name("commit")).click();
+			//System.out.println("got past 6");
+			if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))){
+				//return false;
+			}
 
-				Email q = new Email(usr);
-				String w = q.getMail2("is");
-				if(w.equals("hi")) return false;
-				int r = w.indexOf("is:");
-				w=w.substring(r+3,r+12);
-				System.out.println(w);
+			try {
+				//System.out.println("did it even try this??????");
+				//assertEquals("Confirm Email and Mobile Number", driver.findElement(By.cssSelector("h1")).getText());
+				//System.out.println("right before the do block");
+				do{
+					//System.out.println("here1");
+					driver.findElement(By.name("spec_email"));
+					//System.out.println("here2");
+					driver.findElement(By.name("spec_email")).sendKeys("testbossrev@gmail.com");
+					//System.out.println("here3");
+					driver.findElement(By.name("spec_email")).click();
 
-				driver.findElement(By.id("email_code")).sendKeys(w);
-				driver.findElement(By.name("verify_email_btn")).click();
+					Email q = new Email(usr);
+					//System.out.println("here4");
+					String w = q.getMail2("code");
+					//System.out.println("here5");
+					//if(w.equals("hi")) return false;
+					//System.out.println("here6");
+					int r = w.indexOf("is: ");
+					//System.out.println("here7");
+					//System.out.println(w);
+					w=w.substring(r+1,r+10);
+					//System.out.println("here8");
+					//System.out.println(w);
+
+					driver.findElement(By.id("temp_code")).sendKeys(w);
+					//System.out.println("here9");
+					driver.findElement(By.name("commit")).click();
+					//System.out.println("here10");
+					for (int second = 0;; second++) {
+						if (second >= 60) fail("timeout");
+						try { if (isElementPresent(By.name("mobile_request_code_btn"))) break; } catch (Exception e) {}
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					try {
+						Thread.sleep(2000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}while(isElementPresent(By.cssSelector("div.error")));
+				driver.findElement(By.id("mobile")).clear();
+				driver.findElement(By.id("mobile")).sendKeys(usr);
+				driver.findElement(By.name("mobile_request_code_btn")).click();
+				veriCode window = new veriCode();
+				String b=window.gotIt();
+				driver.findElement(By.id("mobile_code")).clear();
+				driver.findElement(By.id("mobile_code")).sendKeys(b);
+				driver.findElement(By.name("verify_mobile_btn")).click();
 				for (int second = 0;; second++) {
 					if (second >= 60) fail("timeout");
 					try { if (isElementPresent(By.name("mobile_request_code_btn"))) break; } catch (Exception e) {}
@@ -116,74 +167,61 @@ public class QA_AU_SalesAgent {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+
 					}
 				}
 				try {
-					Thread.sleep(2000);
+					Thread.sleep(1500);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}while(isElementPresent(By.cssSelector("div.error")));			
-			driver.findElement(By.id("mobile")).clear();
-			driver.findElement(By.id("mobile")).sendKeys(usr);
-			driver.findElement(By.name("mobile_request_code_btn")).click();
-			veriCode window = new veriCode();
-			String b=window.gotIt();
-			driver.findElement(By.id("mobile_code")).clear();
-			driver.findElement(By.id("mobile_code")).sendKeys(b);
-			driver.findElement(By.name("verify_mobile_btn")).click();
-			for (int second = 0;; second++) {
-		    	if (second >= 60) fail("timeout");
-		    	try { if (isElementPresent(By.name("mobile_request_code_btn"))) break; } catch (Exception e) {}
-		    	try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					
-				}
-		    }
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if(isElementPresent(By.cssSelector("div.error"))) return false;
-			driver.findElement(By.cssSelector("div.buttonsX > input[type=\"submit\"]")).click();
+				if(isElementPresent(By.cssSelector("div.error"))) return false;
+				driver.findElement(By.cssSelector("div.buttonsX > input[type=\"submit\"]")).click();
 			} catch (Error e) {
-		}
-		try {
-			assertEquals("Confirm Your Identity", driver.findElement(By.cssSelector("h1")).getText());
-			driver.findElement(By.name("spec_email")).click();
-			if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
-			
-			Email q = new Email(usr);
-			String w = q.getMail2("code");
-			if(w.equals("hi")) return false;
-			int r = w.indexOf("is:");
-			w=w.substring(r+3,r+12);
+			}
+			try {
+				assertEquals("Confirm Your Identity", driver.findElement(By.cssSelector("h1")).getText());
+				driver.findElement(By.name("spec_email")).click();
+				if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
+				
+				Email q = new Email(usr);
+				System.out.println("email1");
+				String w = q.getMail2("code");
+				System.out.println("email2");
+				//if(w.equals("hi")) return false;
+				System.out.println("email3");
+				int r = w.indexOf("is:");
+				System.out.println("email 4");
+				w=w.substring(r+3,r+12);
+				System.out.println("w is: " + w);
+				System.out.println("email 5");
 
-			driver.findElement(By.id("temp_code")).clear();
-			driver.findElement(By.id("temp_code")).sendKeys(w);
-			driver.findElement(By.id("remember_computer")).click();
-		    driver.findElement(By.name("commit")).click();
-		    
-			if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
-		} catch (Error e) {
-		}
-		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p")))return false;
-		if(isElementPresent(By.cssSelector("div.buttonsX > input[type=\"submit\"]")))
-			driver.findElement(By.cssSelector("div.buttonsX > input[type=\"submit\"]")).click();
-		try {
-			assertEquals("Home", driver.findElement(By.cssSelector("h1")).getText());
+				driver.findElement(By.id("temp_code")).clear();
+				System.out.println("email 6");
+				driver.findElement(By.id("temp_code")).sendKeys(w);	
+				System.out.println("email 7");
+				driver.findElement(By.id("remember_computer")).click();
+				System.out.println("email 8");
+				driver.findElement(By.name("commit")).click();
+				System.out.println("email 9");
+				
+				if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
+			} catch (Error e) {
+			}
+
+			if(isElementPresent(By.cssSelector("div.buttonsX > input[type=\"submit\"]")))
+				driver.findElement(By.cssSelector("div.buttonsX > input[type=\"submit\"]")).click();
+			if(isElementPresent(By.name("accept"))){
+				driver.findElement(By.name("accept")).click();
+			}
+			if(isElementPresent(By.cssSelector("div.buttonsX > input[type=\"submit\"]")))
+				driver.findElement(By.cssSelector("div.buttonsX > input[type=\"submit\"]")).click();
 		} catch (Error e) {
 			return false;
 		}
 		return true;
 	}
-
 
 
 	public boolean updateInfo(){

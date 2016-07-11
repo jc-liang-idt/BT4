@@ -608,7 +608,8 @@ public class Runner{
 			}else{
 				testUKDist = false;
 			}
-		/*	if(dist && UKDcreation){
+			/*
+			if(dist && UKDcreation){
 				testUKR1=true;
 				testUKR4=true;
 				System.out.println("Testing Cash Retailer - "+z.r1+":"+z.r1p);
@@ -633,8 +634,10 @@ public class Runner{
 				}else{
 					testUKR4 = false;
 				}
-			}*/
+			}
+			*/
 		}
+		
 		if(testUKSagent){
 			QA_UK_SalesAgent z = new QA_UK_SalesAgent(UKSusr, UKSpw, bossVersion, UKSupdate, UKScreation, UKSpayment, UKSlinks);
 			z.setUp();
