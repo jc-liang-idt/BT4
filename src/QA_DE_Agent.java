@@ -156,8 +156,11 @@ public class QA_DE_Agent  {
 				Email q = new Email(usr);
 				String w = q.getMail2("code");
 				if(w.equals("hi")) return false;
+				System.out.println("w is 1:::" + w);
 				int r = w.indexOf("is:");
-				w=w.substring(r+3,r+12);
+				System.out.println("w is 2:::" + w);
+				w=w.substring(r+1,r+10);
+				System.out.println("w is 3:::" + w);
 
 				driver.findElement(By.id("temp_code")).clear();
 				driver.findElement(By.id("temp_code")).sendKeys(w);
@@ -327,7 +330,7 @@ public class QA_DE_Agent  {
 		driver.findElement(By.id("business_entity_banks_attributes_0_account_holder")).sendKeys("John Snow");
 		driver.findElement(By.id("business_entity_banks_attributes_0_cc_account_number")).clear();
 		driver.findElement(By.id("business_entity_banks_attributes_0_cc_account_number")).sendKeys("4387751111111038");
-		new Select(driver.findElement(By.id("business_entity_banks_attributes_0_cc_exp_year"))).selectByVisibleText("2016");
+		new Select(driver.findElement(By.id("business_entity_banks_attributes_0_cc_exp_year"))).selectByVisibleText("2020");
 		driver.findElement(By.id("business_entity_submit")).click();
 		//if(isElementPresent(By.id("jqdialog_message"))) return false;
 		for (int second = 0;; second++) {
@@ -597,6 +600,13 @@ public class QA_DE_Agent  {
 		driver.findElement(By.id("imtu_request_email")).sendKeys("testbossrev@gmail.com");
 		driver.findElement(By.id("imtu_submit_button")).click();
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
+		
+
+		// switch to active modal frame
+		driver.switchTo().activeElement();
+		// find the Continue bottom from the modal
+		driver.findElement(By.xpath("//div[contains(@class, 'ui-dialog-buttonset')]/button[1]")).click();
+		
 		try {
 			assertEquals("Thank you. Your IMTU purchase was successful.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
 			screenShot("IMTU");
@@ -616,6 +626,7 @@ public class QA_DE_Agent  {
 		driver.findElement(By.id("imtu_request_email")).sendKeys("testbossrev@gmail.com");
 		driver.findElement(By.id("imtu_submit_button")).click();
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
+		
 		try {
 			assertEquals("Thank you. The International Mobile Number has been recharged.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
 		} catch (Error e) {
@@ -647,6 +658,12 @@ public class QA_DE_Agent  {
 		driver.findElement(By.id("imtu_request_email")).sendKeys("testbossrev@gmail.com");
 		driver.findElement(By.id("imtu_submit_button")).click();
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
+		
+		// switch to active modal frame
+		driver.switchTo().activeElement();
+		// find the Continue bottom from the modal
+		driver.findElement(By.xpath("//div[contains(@class, 'ui-dialog-buttonset')]/button[1]")).click();
+		
 		try {
 			assertEquals("Thank you. Your DMTU purchase was successful.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
 			screenShot("DMTU");
@@ -998,13 +1015,13 @@ public class QA_DE_Agent  {
 
 		if(payment){
 			//IMTU///////////////////////////////////////////////12
-			if(imtu()){
+		/*	if(imtu()){
 				System.out.println("[Sucess]IMTU Sucessful");
 				result[12]=1;
 			}else{
 				screenShot("IMTU");
 				System.err.println("[Error]IMTU Failed");
-			}
+			} 
 			//DMTU///////////////////////////////////////////////13
 			if(dmtu()){
 				System.out.println("[Sucess]DMTU Success");
@@ -1013,8 +1030,8 @@ public class QA_DE_Agent  {
 				screenShot("DMTU");
 				System.err.println("[Error]DMTU Failed");
 			}
-			driver.get(baseUrl+"retailers/home/");
-		}
+			driver.get(baseUrl+"retailers/home/"); */
+		} 
 		if(links){
 			//Report///////////////////////////////////////////////14
 			if(reports()){

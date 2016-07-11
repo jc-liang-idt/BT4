@@ -29,8 +29,11 @@ public class Jira{
 
 	/*
 	public static void main (String[] args){
-		Jira testJira = new Jira("", "cliang", "Shortbanana24"); 
+		System.out.println("start JIRA constructor");
+		Jira testJira = new Jira("", "jsu", "BRniKBA6"); 
+		System.out.println("past JIRA constructor");
 		Report a1=new Report();
+		System.out.println("past report");
 		testJira.post("**BOSS UK Distributor**", a1);
 	}
 	*/
@@ -82,7 +85,12 @@ public class Jira{
 		driver.findElement(By.id("login-form-password")).clear();
 		driver.findElement(By.id("login-form-password")).sendKeys(jiraPw);
 		driver.findElement(By.id("login-form-submit")).click();
+<<<<<<< HEAD
 		System.out.println("222");
+=======
+		System.out.println("finishing up the constructor");
+		
+>>>>>>> 12225f878f53da2286b660688866e13b9f9d8dc6
 	}
 
 	private boolean isElementPresent(By by){  
@@ -98,48 +106,32 @@ public class Jira{
 			driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);  
 		}  
 	}
-
-/*	public void run(){
-		dialog_handle_thread = new Thread(new Runnable() {
-			public void run(){
-				try {
-					System.out.println("Starting...");
-					// pass in the path into the dialog
-					// click the 'open' button
-					// sleep for like 20 seconds
-					Thread.sleep(1000);
-					// Child Thread do the upload file action and click on open, letting the program return to the main thread
-					System.out.println("before running exe");
-					Runtime.getRuntime().exec("C:\\Users\\jsu\\Desktop\\AutoIT\\FileUpload.exe");
-					//driver.findElement(By.xpath("//div[contains(@class, 'issue-drop-zone -dui-type-parsed')]/label[contains(@class, 'issue-drop-zone__button aui-button')]")).click();
-					System.out.println("after running exe");
-					
-					
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					System.out.println("exception in run try catch block: " + e1);
-					e1.printStackTrace();
-				}
-			}
-		});  
-	} */
 	
 	public void post(String type, Report q){
 		System.out.println("post");
 		System.out.println("Posting test results on JIRA: "+Jira+"...");
 		results = q.getResults();
+		System.out.println("after results: "+ results);
 		pics = q.getPics();
 		picCount = q.getCount();
+		System.out.println("after pic count: "+ picCount);
 		r = q.getR();
-		for (int second = 0;; second++) {
+		System.out.println("after getR");
+		
+		for (int second = 0; second <= 60; second++) {
+			System.out.println("Get into the for loop");
 			if (second >= 60) break;
+			
 			try { if (isElementPresent(By.cssSelector("#comment-issue > span.trigger-label"))) break; } catch (Exception e) {}
+			System.out.println("after the first try loop");
+			
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			System.out.println("after the second try loop");
 		}
 		System.out.println("333");
 		System.out.println("before span dropdown");

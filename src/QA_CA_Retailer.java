@@ -185,7 +185,7 @@ public class QA_CA_Retailer  {
 				String w = q.getMail2("code");
 				if(w.equals("hi")) return false;
 				int r = w.indexOf("is:");
-				w=w.substring(r+3,r+12);
+				w=w.substring(r+1,r+10);
 
 				driver.findElement(By.id("temp_code")).clear();
 				driver.findElement(By.id("temp_code")).sendKeys(w);
@@ -352,7 +352,7 @@ public class QA_CA_Retailer  {
 		driver.findElement(By.id("business_entity_banks_attributes_0_account_holder")).sendKeys("John Snow");
 		driver.findElement(By.id("business_entity_banks_attributes_0_cc_account_number")).clear();
 		driver.findElement(By.id("business_entity_banks_attributes_0_cc_account_number")).sendKeys("4387751111111038");
-		new Select(driver.findElement(By.id("business_entity_banks_attributes_0_cc_exp_year"))).selectByVisibleText("2016");
+		new Select(driver.findElement(By.id("business_entity_banks_attributes_0_cc_exp_year"))).selectByVisibleText("2020");
 		driver.findElement(By.id("business_entity_submit")).click();
 		//if(isElementPresent(By.id("jqdialog_message"))) return false;
 		for (int second = 0;; second++) {
@@ -685,8 +685,8 @@ public class QA_CA_Retailer  {
 			return false;
 		}
 		new Select(driver.findElement(By.id("imtu_action"))).selectByVisibleText("Purchase PIN");
-		new Select(driver.findElement(By.id("country"))).selectByVisibleText("Guatemala");
-		new Select(driver.findElement(By.id("product"))).selectByVisibleText("$10.00");
+		new Select(driver.findElement(By.id("country"))).selectByVisibleText("Ghana");
+		new Select(driver.findElement(By.id("product"))).selectByVisibleText("$7.00");
 		driver.findElement(By.id("sender_phone")).clear();
 		driver.findElement(By.id("sender_phone")).sendKeys(usr);
 		driver.findElement(By.id("imtu_request_email")).clear();
@@ -694,6 +694,12 @@ public class QA_CA_Retailer  {
 		driver.findElement(By.id("imtu_submit_button")).click();
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 		try {
+			
+			// switch to active modal frame
+			driver.switchTo().activeElement();
+			// find the Continue bottom from the modal
+			driver.findElement(By.xpath("//div[contains(@class, 'ui-dialog-buttonset')]/button[1]")).click();
+			
 			assertEquals("Thank you. Your IMTU purchase was successful.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
 			screenShot("IMTU");
 		} catch (Error e) {
@@ -702,7 +708,7 @@ public class QA_CA_Retailer  {
 		pin = driver.findElement(By.xpath("//div[@id='invoice']/p[11]")).getText();
 		driver.findElement(By.linkText("International Mobile Top-Up")).click();
 		new Select(driver.findElement(By.id("imtu_action"))).selectByVisibleText("Redeem PIN");
-		new Select(driver.findElement(By.id("country"))).selectByVisibleText("Guatemala");
+		new Select(driver.findElement(By.id("country"))).selectByVisibleText("Ghana");
 		driver.findElement(By.name("imtu_request[receiver_phone]")).clear();
 		driver.findElement(By.name("imtu_request[receiver_phone]")).sendKeys("50212344567");
 		driver.findElement(By.id("pin")).sendKeys(pin);
@@ -712,6 +718,12 @@ public class QA_CA_Retailer  {
 		driver.findElement(By.id("imtu_request_email")).sendKeys("testbossrev@gmail.com");
 		driver.findElement(By.id("imtu_submit_button")).click();
 		try {
+			
+			// switch to active modal frame
+			driver.switchTo().activeElement();
+			// find the Continue bottom from the modal
+			driver.findElement(By.xpath("//div[contains(@class, 'ui-dialog-buttonset')]/button[1]")).click();
+			
 			assertEquals("Thank you. The International Mobile Number has been recharged.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
 		} catch (Error e) {
 			return false;
@@ -1161,7 +1173,7 @@ public class QA_CA_Retailer  {
 			return false;
 		}
 		driver.findElement(By.id("amount")).clear();
-		driver.findElement(By.id("amount")).sendKeys("2");
+		driver.findElement(By.id("amount")).sendKeys("2.00");
 		driver.findElement(By.name("commit")).click();
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))){
 			return false;
@@ -1296,13 +1308,13 @@ public class QA_CA_Retailer  {
 		if(payment){
 			/////////////////////////////////////////////////
 			driver.get(baseUrl+"retailers/home/");
-			if(imtu()){
+	/*		if(imtu()){
 				System.out.println("[Sucess]IMTU Sucessful");
 				result[12]=1;
 			}else{
 				screenShot("IMTU");
 				System.err.println("[Error]IMTU Failed");
-			}
+			} */
 			/////////////////////////////////////////////////
 			if(recharge()){
 				if(result[19]!=2){

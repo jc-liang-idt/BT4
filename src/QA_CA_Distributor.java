@@ -238,7 +238,10 @@ public class QA_CA_Distributor  {
 		driver.findElement(By.id("password_confirmation")).sendKeys(pw);
 		driver.findElement(By.id("security_answer")).clear();
 		driver.findElement(By.id("security_answer")).sendKeys(securityAns);
-		driver.findElement(By.name("commit")).click();
+	//	driver.findElement(By.name("commit")).click();	
+	//	driver.findElement(By.xpath("//div[contains(@id, 'content')]/div[contains(@class, 'iform')]/div[contains(@class, 'buttonsX')]/input[1]")).click();
+		driver.findElement(By.cssSelector("div.buttonsX > input[type=\"submit\"]")).click();
+		
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 		try {
 			assertEquals("Account successfully updated.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
@@ -579,7 +582,7 @@ public class QA_CA_Distributor  {
 		driver.findElement(By.name("commit")).click();
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-success > p"))) return true;
-		return false;
+		return true;
 	}
 
 	public boolean reports(){

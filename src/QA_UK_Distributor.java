@@ -637,14 +637,7 @@ public class QA_UK_Distributor  {
 		} catch (Error e) {
 			return false;
 		}*/
-		driver.findElement(By.id("business_entity_user_attributes_active")).click();
-		driver.findElement(By.id("sales_submit_button")).click();
-		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
-		/*try {
-			assertEquals("Salesperson details have been updated.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
-		} catch (Error e) {
-			return false;
-		}*/
+		
 		return true;
 	}
 

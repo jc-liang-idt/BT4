@@ -427,7 +427,9 @@ public class QA_CA_SalesAgent {
 		int randomNum = rand.nextInt((size-1) + 1);
 		a.selectByIndex(randomNum);
 		
-		driver.findElement(By.name("commit")).click();
+	//	driver.findElement(By.name("commit")).click();
+		driver.findElement(By.cssSelector("div.buttonsX > input[type=\"submit\"]")).click();
+		
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p")))return false;
 		try {
 			assertEquals("1 record successfully saved", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
