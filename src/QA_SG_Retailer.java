@@ -139,28 +139,15 @@ public class QA_SG_Retailer  {
 					driver.findElement(By.name("spec_email")).click();
 
 					Email q = new Email(usr);
-<<<<<<< HEAD
+
 					String w = q.getMail2("is");
 					if(w.equals("hi")) return false;
 					System.out.println("w is 1::::" + w);
 					int r = w.indexOf("is:");
 					System.out.println("w is 2::::" + w);
-					w=w.substring(r+3,r+12);
+					w=w.substring(r+1,r+10);
 					System.out.println("w is 3::::" + w);
 
-=======
-					//System.out.println("here4");
-					String w = q.getMail2("code");
-					//System.out.println("here5");
-					//if(w.equals("hi")) return false;
-					//System.out.println("here6");
-					int r = w.indexOf("is: ");
-					//System.out.println("here7");
-					//System.out.println(w);
-					w=w.substring(r+1,r+10);
-					//System.out.println("here8");
-					//System.out.println(w);
->>>>>>> 356f0d08b81cee34ee1d2a0129df2741ad90e9a1
 
 					driver.findElement(By.id("temp_code")).sendKeys(w);
 					//System.out.println("here9");
@@ -219,23 +206,14 @@ public class QA_SG_Retailer  {
 				Email q = new Email(usr);
 				System.out.println("email1");
 				String w = q.getMail2("code");
-<<<<<<< HEAD
+
 				if(w.equals("hi")) return false;
 				System.out.println("w is 1::::" + w);
 				int r = w.indexOf("is:");
 				System.out.println("w is 2::::" + w);
 				w=w.substring(r+1,r+10);
 				System.out.println("w is 3::::" + w);
-=======
-				System.out.println("email2");
-				//if(w.equals("hi")) return false;
-				System.out.println("email3");
-				int r = w.indexOf("is:");
-				System.out.println("email 4");
-				w=w.substring(r+3,r+12);
-				System.out.println("w is: " + w);
-				System.out.println("email 5");
->>>>>>> 356f0d08b81cee34ee1d2a0129df2741ad90e9a1
+
 
 				driver.findElement(By.id("temp_code")).clear();
 				System.out.println("email 6");
@@ -735,16 +713,16 @@ public class QA_SG_Retailer  {
 			// find the Continue bottom from the modal
 			driver.findElement(By.xpath("//div[contains(@class, 'ui-dialog-buttonset')]/button[1]")).click();
 			
-<<<<<<< HEAD
+
 			assertEquals("Thank you. Your IMTU purchase was successful.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
 			screenShot("IMTU");
-=======
+
 			String imtuCheck = driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText();
 			if (imtuCheck == "Thank you. Your IMTU purchase was successful."){
 				return true;
 			}
 			
->>>>>>> 356f0d08b81cee34ee1d2a0129df2741ad90e9a1
+
 		} catch (Error e) {
 			System.out.println("hereee");
 			return false;
@@ -764,7 +742,7 @@ public class QA_SG_Retailer  {
 		driver.findElement(By.id("imtu_submit_button")).click(); 
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 		try {
-<<<<<<< HEAD
+
 
 			// switch to active modal frame
 			driver.switchTo().activeElement();
@@ -772,20 +750,17 @@ public class QA_SG_Retailer  {
 			driver.findElement(By.xpath("//div[contains(@class, 'ui-dialog-buttonset')]/button[1]")).click();
 			
 			assertEquals("Thank you. The International Mobile Number has been recharged.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
-=======
+
 			// switch to active modal frames
-			driver.switchTo().activeElement();
+		//	driver.switchTo().activeElement();
 			// find the Continue bottom from the modal
-			driver.findElement(By.xpath("//div[contains(@class, 'ui-dialog-buttonset')]/button[1]")).click();
+		//	driver.findElement(By.xpath("//div[contains(@class, 'ui-dialog-buttonset')]/button[1]")).click();
 			if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 			String imtuCheck = driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText();
 			if (imtuCheck == "Thank you. Your IMTU purchase was successful."){
 				return true;
 			}
 		
-			
-			
->>>>>>> 356f0d08b81cee34ee1d2a0129df2741ad90e9a1
 		} catch (Error e) {
 			System.out.println("no here");
 			return false;
