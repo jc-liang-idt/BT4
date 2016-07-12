@@ -238,7 +238,9 @@ public class QA_AU_Distributor  {
 		driver.findElement(By.id("password_confirmation")).sendKeys(pw);
 		driver.findElement(By.id("security_answer")).clear();
 		driver.findElement(By.id("security_answer")).sendKeys(securityAns);
-		driver.findElement(By.name("commit")).click();
+	//	driver.findElement(By.name("commit")).click();
+		driver.findElement(By.cssSelector("div.buttonsX > input[type=\"submit\"]")).click();
+		
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 		try {
 			assertEquals("Account successfully updated.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());

@@ -135,9 +135,12 @@ public class QA_SG_Retailer  {
 					Email q = new Email(usr);
 					String w = q.getMail2("is");
 					if(w.equals("hi")) return false;
+					System.out.println("w is 1::::" + w);
 					int r = w.indexOf("is:");
+					System.out.println("w is 2::::" + w);
 					w=w.substring(r+3,r+12);
-					System.out.println(w);
+					System.out.println("w is 3::::" + w);
+
 
 					driver.findElement(By.id("email_code")).sendKeys(w);
 					driver.findElement(By.name("verify_email_btn")).click();
@@ -194,8 +197,11 @@ public class QA_SG_Retailer  {
 				Email q = new Email(usr);
 				String w = q.getMail2("code");
 				if(w.equals("hi")) return false;
+				System.out.println("w is 1::::" + w);
 				int r = w.indexOf("is:");
-				w=w.substring(r+3,r+12);
+				System.out.println("w is 2::::" + w);
+				w=w.substring(r+1,r+10);
+				System.out.println("w is 3::::" + w);
 
 				driver.findElement(By.id("temp_code")).clear();
 				driver.findElement(By.id("temp_code")).sendKeys(w);
@@ -692,6 +698,12 @@ public class QA_SG_Retailer  {
 		driver.findElement(By.id("imtu_submit_button")).click();
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 		try {
+
+			// switch to active modal frame
+			driver.switchTo().activeElement();
+			// find the Continue bottom from the modal
+			driver.findElement(By.xpath("//div[contains(@class, 'ui-dialog-buttonset')]/button[1]")).click();
+			
 			assertEquals("Thank you. Your IMTU purchase was successful.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
 			screenShot("IMTU");
 		} catch (Error e) {
@@ -712,6 +724,12 @@ public class QA_SG_Retailer  {
 		driver.findElement(By.id("imtu_submit_button")).click();
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 		try {
+
+			// switch to active modal frame
+			driver.switchTo().activeElement();
+			// find the Continue bottom from the modal
+			driver.findElement(By.xpath("//div[contains(@class, 'ui-dialog-buttonset')]/button[1]")).click();
+			
 			assertEquals("Thank you. The International Mobile Number has been recharged.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
 		} catch (Error e) {
 			return false;
@@ -911,17 +929,17 @@ public class QA_SG_Retailer  {
 		} catch (Error e) {
 			return false;
 		}
-		try {
+	/*	try {
 			assertTrue(isElementPresent(By.id("qr_home_image")));
 		} catch (Error e) {
 			return false;
-		}
+		} */
 		try {
 			assertTrue(isElementPresent(By.id("qr_new_image")));
 		} catch (Error e) {
 			return false;
 		}
-		try {
+/*		try {
 			assertEquals("CUSTOMER SITE", driver.findElement(By.cssSelector("div.whalfpx.dib > h2")).getText());
 		} catch (Error e) {
 			return false;
@@ -930,7 +948,7 @@ public class QA_SG_Retailer  {
 			assertEquals("SIGNUP PAGE", driver.findElement(By.xpath("//div[@id='content']/table/tbody/tr/td[2]/div[2]/h2")).getText());
 		} catch (Error e) {
 			return false;
-		}
+		} */
 		return true;
 	}
 	//checks for elements
@@ -1251,13 +1269,13 @@ public class QA_SG_Retailer  {
 			/////////////////////////////////////////////////
 			driver.get(baseUrl+"retailers/home/");
 			driver.findElement(By.cssSelector("span.lbl")).click();
-			if(imtu()){
+		/*	if(imtu()){
 				System.out.println("[Sucess]IMTU Sucessful");
 				result[12]=1;
 			}else{
 				screenShot("IMTU");
 				System.err.println("[Error]IMTU Failed");
-			}
+			} */
 			/////////////////////////////////////////////////
 			if(recharge()){
 				if(result[19]!=2){
