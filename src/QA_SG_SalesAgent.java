@@ -155,19 +155,20 @@ public class QA_SG_SalesAgent {
 		}
 		try {
 			assertEquals("Confirm Your Identity", driver.findElement(By.cssSelector("h1")).getText());
-			new Select(driver.findElement(By.id("device"))).selectByVisibleText("Email Address");
-			driver.findElement(By.name("commit")).click();
-
-
+			driver.findElement(By.name("spec_email")).click();
+			if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
+			
 			Email q = new Email(usr);
-			String w = q.getMail2("access");
+			String w = q.getMail2("code");
 			if(w.equals("hi")) return false;
 			int r = w.indexOf("is:");
 			w=w.substring(r+3,r+12);
 
 			driver.findElement(By.id("temp_code")).clear();
 			driver.findElement(By.id("temp_code")).sendKeys(w);
-			driver.findElement(By.xpath("(//input[@name='commit'])[2]")).click();
+			driver.findElement(By.id("remember_computer")).click();
+		    driver.findElement(By.name("commit")).click();
+		    
 			if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 		} catch (Error e) {
 		}
