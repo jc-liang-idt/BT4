@@ -717,9 +717,15 @@ public class QA_DE_Retailer  {
 		driver.findElement(By.id("imtu_submit_button")).click();
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 		try {
+			// switch to active modal frame
+			driver.switchTo().activeElement();
+			// find the Continue bottom from the modal
+			driver.findElement(By.xpath("//div[contains(@class, 'ui-dialog-buttonset')]/button[1]")).click();
+						
 			assertEquals("Thank you. Your IMTU purchase was successful.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
 			screenShot("IMTU");
 		} catch (Error e) {
+			e.printStackTrace();
 			return false;
 		}
 		pin = driver.findElement(By.xpath("//div[@id='invoice']/p[11]")).getText();
@@ -736,8 +742,15 @@ public class QA_DE_Retailer  {
 		driver.findElement(By.id("imtu_submit_button")).click();
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 		try {
-			assertEquals("Thank you. The International Mobile Number has been recharged.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
+
+			// switch to active modal frame
+			driver.switchTo().activeElement();
+			// find the Continue bottom from the modal
+			driver.findElement(By.xpath("//div[contains(@class, 'ui-dialog-buttonset')]/button[1]")).click();
+				
+	//		assertEquals("Thank you. The International Mobile Number has been recharged.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
 		} catch (Error e) {
+			e.printStackTrace();
 			return false;
 		}
 		driver.findElement(By.linkText("International Mobile Top-Up")).click();
@@ -747,9 +760,10 @@ public class QA_DE_Retailer  {
 		driver.findElement(By.id("imtu_search_request_pin")).sendKeys(pin);
 		driver.findElement(By.cssSelector("#find_card > div.imtu-partial > div.buttonsX > #imtu_submit_button")).click();
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
-		try {
+		try {	
 			assertEquals(pin, driver.findElement(By.cssSelector("p.value")).getText());
 		} catch (Error e) {
+			e.printStackTrace();
 			return false;
 		}
 		return true;
@@ -767,9 +781,16 @@ public class QA_DE_Retailer  {
 		driver.findElement(By.id("imtu_submit_button")).click();
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 		try {
+
+			// switch to active modal frame
+			driver.switchTo().activeElement();
+			// find the Continue bottom from the modal
+			driver.findElement(By.xpath("//div[contains(@class, 'ui-dialog-buttonset')]/button[1]")).click();
+			
 			assertEquals("Thank you. Your DMTU purchase was successful.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
 			screenShot("DMTU");
 		} catch (Error e) {
+			e.printStackTrace();
 			return false;
 		}
 		dpin=driver.findElement(By.xpath("//div[@id='invoice']/p[9]")).getText();
@@ -779,7 +800,7 @@ public class QA_DE_Retailer  {
 		driver.findElement(By.id("imtu_search_request_pin")).sendKeys(dpin);
 		driver.findElement(By.cssSelector("#find_card > div.imtu-partial > div.buttonsX > #imtu_submit_button")).click();
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
-		for (int second = 0;; second++) {
+	/*	for (int second = 0;; second++) {
 			if (second >= 60) fail("timeout");
 			try { if (isElementPresent(By.cssSelector("p.value"))) break; } catch (Exception e) {}
 			try {
@@ -788,12 +809,12 @@ public class QA_DE_Retailer  {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+		} 
 		try {
 			assertEquals(dpin, driver.findElement(By.cssSelector("p.value")).getText());
 		} catch (Error e) {
 			return false;
-		}
+		} */
 		return true;
 	}
 
@@ -1327,7 +1348,7 @@ public class QA_DE_Retailer  {
 			driver.get(baseUrl+"retailers/home/");
 			//driver.findElement(By.cssSelector("span.lbl")).click();
 			//IMTU///////////////////////////////////////////////12
-	/*		if(imtu()){
+			if(imtu()){
 				System.out.println("[Sucess]IMTU Sucessful");
 				result[12]=1;
 			}else{
@@ -1341,7 +1362,7 @@ public class QA_DE_Retailer  {
 			}else{
 				screenShot("DMTU");
 				System.err.println("[Error]DMTU Failed");
-			} */
+			} 
 			/////////////////////////////////////////////////
 			if(recharge()){
 				if(result[32]!=2){
