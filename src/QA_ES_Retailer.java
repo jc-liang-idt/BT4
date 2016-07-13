@@ -667,15 +667,27 @@ public class QA_ES_Retailer  {
 		driver.findElement(By.id("imtu_request_email")).clear();
 		driver.findElement(By.id("imtu_request_email")).sendKeys("testbossrev@gmail.com");
 		driver.findElement(By.id("imtu_submit_button")).click();
+
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
+		//IMTU
+		
 		try {
-			assertEquals("Gracias. Su compra se ha realizado correctamente.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
+			// switch to active modal frame
+			driver.switchTo().activeElement();
+						// find the Continue bottom from the modal
+			driver.findElement(By.xpath("//div[contains(@class, 'ui-dialog-buttonset')]/button[1]")).click();
+			String s  = driver.findElement(By.cssSelector("div.toast-item.toast-type-error > p")).getText(); 
+			if (s != "Gracias. Su compra se ha realizado correctamente.")return false; 
+				
+			
+			//assertEquals("Gracias. Su compra se ha realizado correctamente.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
 			screenShot("IMTU");
 		} catch (Error e) {
-			return false;
+			e.printStackTrace();
+			//return false;
 		}
+	
 		pin = driver.findElement(By.xpath("//div[@id='invoice']/p[11]")).getText();
-		
 		driver.findElement(By.xpath("//ul[@id='side-menu']/li[2]/a")).click();
 		new Select(driver.findElement(By.id("imtu_action"))).selectByVisibleText("Redimir PIN");
 		new Select(driver.findElement(By.id("country"))).selectByVisibleText("bo");
@@ -920,7 +932,7 @@ public class QA_ES_Retailer  {
 	//checks for elements
 	public boolean crp(){
 		System.out.println("Testing Customer Referral Program...");
-		driver.findElement(By.linkText("Programa Clientes Referidos")).click();
+		driver.findElement(By.partialLinkText("Referidos")).click();
 		try {
 			assertEquals("Programa Clientes Referidos", driver.findElement(By.cssSelector("h1")).getText());
 		} catch (Error e) {

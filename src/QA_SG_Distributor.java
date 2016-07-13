@@ -205,6 +205,7 @@ public class QA_SG_Distributor  {
 		} catch (Error e) {
 			return false;
 		}
+		
 		driver.findElement(By.id("business_entity_phones_attributes_0_number")).clear();
 		driver.findElement(By.id("business_entity_phones_attributes_0_number")).sendKeys(randNum("1"));
 		driver.findElement(By.id("business_entity_physical_addresses_attributes_0_street2")).clear();
@@ -384,7 +385,7 @@ public class QA_SG_Distributor  {
 		driver.findElement(By.id("business_entity_banks_attributes_0_cc_account_number")).clear();
 		driver.findElement(By.id("business_entity_banks_attributes_0_cc_account_number")).sendKeys("5454545454545454");
 		new Select(driver.findElement(By.id("business_entity_banks_attributes_0_cc_exp_month"))).selectByVisibleText("03");
-		new Select(driver.findElement(By.id("business_entity_banks_attributes_0_cc_exp_year"))).selectByVisibleText("2018");
+		new Select(driver.findElement(By.id("business_entity_banks_attributes_0_cc_exp_year"))).selectByVisibleText("2020");
 		driver.findElement(By.id("business_entity_physical_addresses_attributes_0_street1")).clear();
 		driver.findElement(By.id("business_entity_physical_addresses_attributes_0_street1")).sendKeys("249 Always Way");
 		driver.findElement(By.id("business_entity_physical_addresses_attributes_0_city")).clear();
@@ -495,7 +496,7 @@ public class QA_SG_Distributor  {
 		driver.findElement(By.id("business_entity_banks_attributes_0_cc_account_number")).clear();
 		driver.findElement(By.id("business_entity_banks_attributes_0_cc_account_number")).sendKeys("5454545454545454");
 		new Select(driver.findElement(By.id("business_entity_banks_attributes_0_cc_exp_month"))).selectByVisibleText("05");
-		new Select(driver.findElement(By.id("business_entity_banks_attributes_0_cc_exp_year"))).selectByVisibleText("2018");
+		new Select(driver.findElement(By.id("business_entity_banks_attributes_0_cc_exp_year"))).selectByVisibleText("2020");
 		driver.findElement(By.id("business_entity_physical_addresses_attributes_0_street1")).clear();
 		driver.findElement(By.id("business_entity_physical_addresses_attributes_0_street1")).sendKeys("249 Always Way");
 		driver.findElement(By.id("business_entity_physical_addresses_attributes_0_city")).clear();

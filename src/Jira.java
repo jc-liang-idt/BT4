@@ -85,12 +85,12 @@ public class Jira{
 		driver.findElement(By.id("login-form-password")).clear();
 		driver.findElement(By.id("login-form-password")).sendKeys(jiraPw);
 		driver.findElement(By.id("login-form-submit")).click();
-<<<<<<< HEAD
+
 		System.out.println("222");
-=======
+
 		System.out.println("finishing up the constructor");
 		
->>>>>>> 12225f878f53da2286b660688866e13b9f9d8dc6
+
 	}
 
 	private boolean isElementPresent(By by){  

@@ -709,9 +709,9 @@ public class QA_DE_Retailer  {
 		new Select(driver.findElement(By.id("imtu_action"))).selectByVisibleText("Purchase PIN");
 		new Select(driver.findElement(By.id("country"))).selectByVisibleText("CI");
 		Select q=new Select(driver.findElement(By.id("product")));
-		q.selectByValue(q.getOptions().get(1).getAttribute("value"));
+		q.selectByValue(q.getOptions().get(2).getAttribute("value"));
 		driver.findElement(By.id("sender_phone")).clear();
-		driver.findElement(By.id("sender_phone")).sendKeys(usr);
+		driver.findElement(By.id("sender_phone")).sendKeys("22545123456");
 		driver.findElement(By.id("imtu_request_email")).clear();
 		driver.findElement(By.id("imtu_request_email")).sendKeys("testbossrev@gmail.com");
 		driver.findElement(By.id("imtu_submit_button")).click();
@@ -727,8 +727,8 @@ public class QA_DE_Retailer  {
 		new Select(driver.findElement(By.id("imtu_action"))).selectByVisibleText("Redeem PIN");
 		new Select(driver.findElement(By.id("country"))).selectByVisibleText("CI");
 		driver.findElement(By.name("imtu_request[receiver_phone]")).clear();
-		driver.findElement(By.name("imtu_request[receiver_phone]")).sendKeys("3578945987");
-		driver.findElement(By.id("pin")).sendKeys(pin);
+		driver.findElement(By.name("imtu_request[receiver_phone]")).sendKeys("22545123456");
+		driver.findElement(By.id("pin")).sendKeys("06042955125");
 		driver.findElement(By.id("sender_phone")).clear();
 		driver.findElement(By.id("sender_phone")).sendKeys(usr);
 		driver.findElement(By.id("imtu_request_email")).clear();
