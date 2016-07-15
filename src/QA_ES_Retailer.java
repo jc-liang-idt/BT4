@@ -675,7 +675,7 @@ public class QA_ES_Retailer  {
 		//IMTU
 		
 		try {
-<<<<<<< HEAD
+
 			// switch to active modal frame
 			driver.switchTo().activeElement();
 						// find the Continue bottom from the modal
@@ -685,7 +685,7 @@ public class QA_ES_Retailer  {
 				
 			
 			//assertEquals("Gracias. Su compra se ha realizado correctamente.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
-=======
+
 
 			// switch to active modal frame
 			driver.switchTo().activeElement();
@@ -693,7 +693,7 @@ public class QA_ES_Retailer  {
 			driver.findElement(By.xpath("//div[contains(@class, 'ui-dialog-buttonset')]/button[1]")).click();
 			
 			assertEquals("Gracias. Su compra se ha realizado correctamente.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
->>>>>>> e6bdd31743ba7d34b18c0e0fd5ccd6daed43d4ff
+
 			screenShot("IMTU");
 		} catch (Error e) {
 			e.printStackTrace();
