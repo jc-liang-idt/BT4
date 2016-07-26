@@ -931,17 +931,17 @@ public class QA_AU_Retailer  {
 		} catch (Error e) {
 			return false;
 		}
-		try {
+	/*	try {
 			assertTrue(isElementPresent(By.id("qr_home_image")));
 		} catch (Error e) {
 			return false;
-		}
+		} */
 		try {
 			assertTrue(isElementPresent(By.id("qr_new_image")));
 		} catch (Error e) {
 			return false;
 		}
-		try {
+/*		try {
 			assertEquals("CUSTOMER SITE", driver.findElement(By.cssSelector("div.whalfpx.dib > h2")).getText());
 		} catch (Error e) {
 			return false;
@@ -950,7 +950,7 @@ public class QA_AU_Retailer  {
 			assertEquals("SIGNUP PAGE", driver.findElement(By.xpath("//div[@id='content']/table/tbody/tr/td[2]/div[2]/h2")).getText());
 		} catch (Error e) {
 			return false;
-		}
+		} */
 		return true;
 	}
 

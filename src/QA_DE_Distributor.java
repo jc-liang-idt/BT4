@@ -244,6 +244,7 @@ public class QA_DE_Distributor  {
 		
 		if(isElementPresent(By.cssSelector("div.toast-item.toast-type-error > p"))) return false;
 		try {
+			
 			assertEquals("Account successfully updated.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
 			driver.findElement(By.xpath("//div[@id='tabnav']/a[4]")).click();
 			login();
