@@ -538,7 +538,7 @@ public class QA_DE_SalesAgent {
 			return false;
 		}
 
-		Select a = new Select(driver.findElement(By.cssSelector("tr.odd > td.c > #ec__c")));
+		Select a = new Select(driver.findElement(By.cssSelector("tr.even > td.c > #ec__c")));
 		int size = a.getOptions().size();
 		Random rand = new Random();
 		int randomNum = rand.nextInt((size-1) + 1);

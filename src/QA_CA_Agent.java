@@ -158,6 +158,7 @@ public class QA_CA_Agent  {
 			int r = w.indexOf("is:");
 			System.out.println("w is 2:::: " + w);
 			w=w.substring(r+1,r+10);
+			System.out.println("w is 3:::: " + w);
 
 			driver.findElement(By.id("temp_code")).clear();
 			driver.findElement(By.id("temp_code")).sendKeys(w);
@@ -924,7 +925,7 @@ public class QA_CA_Agent  {
 		}
 		if(payment){
 			//IMTU///////////////////////////////////////////////12
-	/*		if(imtu()){
+		/*	if(imtu()){
 				System.out.println("[Sucess]IMTU Sucessful");
 				result[12]=1;
 			}else{
