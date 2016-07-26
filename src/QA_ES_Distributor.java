@@ -393,6 +393,7 @@ public class QA_ES_Distributor  {
 			assertEquals("Minorista creado con éxito.", driver.findElement(By.cssSelector("div.toast-item.toast-type-notice > p")).getText());
 		} catch (Error e) {
 			return false;
+			//
 		}
 		r2 = driver.findElement(By.id("account_number")).getAttribute("value");
 		Email q = new Email(usr);
