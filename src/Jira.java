@@ -133,12 +133,10 @@ public class Jira{
 			}
 			System.out.println("after the second try loop");
 		}
-		System.out.println("333");
-		System.out.println("before span dropdown");
+		
 		driver.findElement(By.cssSelector("span.dropdown-text")).click();
 		driver.findElement(By.id("attach-file")).click();
-		System.out.println("after the attach-file dropdown is clicked");
-		System.out.println("444");
+		
 		for (int second = 0;; second++) {
 			if (second >= 120) break;
 			try { 
